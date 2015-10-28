@@ -5,7 +5,7 @@
     <display-name>startup</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:application-config.xml</param-value>
+        <param-value>classpath:application-config.xml</param-value>
     </context-param>
     <filter>
         <filter-name>HttpMethodFilter</filter-name>
@@ -65,7 +65,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <listener>
+<!--    <listener>
         <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
     </listener>
     <filter>
@@ -75,7 +75,7 @@
     <filter-mapping>
         <filter-name>CAS Single Sign Out Filter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <session-config>
         <session-timeout>30</session-timeout>
