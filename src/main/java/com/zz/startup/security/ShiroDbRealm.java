@@ -30,7 +30,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Autowired
     protected MongoTemplate mongoTemplate;
 
-    private User findUserByLoginName(String userName) {
+    private User findUserByUserName(String userName) {
         return mongoTemplate.findOne(new Query(Criteria.where("userName").is(userName)), User.class);
     }
 
@@ -55,7 +55,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
                 throw new RuntimeException("验证码错误");
             }
         }
-        User user = findUserByLoginName(username);
+        User user = findUserByUserName(username);
         if (user != null) {
             byte[] salt = Encodes.decodeHex(user.getSalt());
             return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
@@ -73,7 +73,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        User user = findUserByLoginName(shiroUser.userName);
+        User user = findUserByUserName(shiroUser.userName);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         List<Role> roles = user.getRoleList();
@@ -142,17 +142,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
             return userName;
         }
 
-        /**
-         * 重载hashCode,只计算loginName;
-         */
         @Override
         public int hashCode() {
             return Objects.hashCode(userName);
         }
 
-        /**
-         * 重载equals,只计算loginName;
-         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) {
