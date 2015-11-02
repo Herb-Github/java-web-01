@@ -5,6 +5,8 @@ import com.zz.startup.entity.Authority;
 import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
 import com.zz.startup.util.Constants;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -19,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springside.modules.utils.Encodes;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
@@ -57,7 +58,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
         }
         User user = findUserByUserName(username);
         if (user != null) {
-            byte[] salt = Encodes.decodeHex(user.getSalt());
+            byte[] salt = new byte[0];
+            try {
+                salt = Hex.decodeHex(user.getSalt().toCharArray());
+            } catch (DecoderException e) {
+                e.printStackTrace();
+            }
             return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
                     user.getUserName()), user.getPassword(),
                     ByteSource.Util.bytes(salt), getName());
