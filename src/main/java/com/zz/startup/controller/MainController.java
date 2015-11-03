@@ -8,11 +8,6 @@ public class MainController {
 
     @RequestMapping("main")
     public String main(){
-        return "admin-index-fixed";
-    }
-
-    @RequestMapping("login")
-    public String login(){
-        return "login";
+        return "redirect:/user/list";
     }
 }
