@@ -50,10 +50,10 @@
                 /getCaptcha = anon
                 /validateCaptcha = anon
                 /favicon.ico = anon,noSessionCreation
-                /static/** = anon,noSessionCreation
                 /assets/** = anon,noSessionCreation
                 /api/mobile/** = anon,noSessionCreation
-                /** = user
+                /** = anon
+                <!--/** = user-->
             </value>
         </property>
     </bean>

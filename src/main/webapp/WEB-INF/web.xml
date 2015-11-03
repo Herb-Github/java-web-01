@@ -65,18 +65,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-<!--    <listener>
-        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-    </listener>
-    <filter>
-        <filter-name>CAS Single Sign Out Filter</filter-name>
-        <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CAS Single Sign Out Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
