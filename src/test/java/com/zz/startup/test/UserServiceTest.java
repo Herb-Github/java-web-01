@@ -19,9 +19,10 @@ public class UserServiceTest {
     @Test
     public void testCreateUser() {
         User user = new User();
-        user.setEmail("yxb@yxb.com");
-        user.setPlainPassword("123456");
-        user.setUserName("yxb");
+        user.setId("1");
+        user.setEmail("admin@admin.com");
+        user.setPlainPassword("111111");
+        user.setUserName("admin");
         user.setPermissions(Lists.newArrayList("*:*"));
 
         userService.createUser(user);

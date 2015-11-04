@@ -65,4 +65,6 @@
 
     <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basenames="WEB-INF/i18n/messages"/>
+
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 </beans>

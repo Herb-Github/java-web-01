@@ -55,6 +55,31 @@
         <junit.version>4.11</junit.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>nexus-osc</id>
+            <name>nexus-osc</name>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>nexus-osc-thirdparty</id>
+            <name>nexus-osc-thirdparty</name>
+            <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
