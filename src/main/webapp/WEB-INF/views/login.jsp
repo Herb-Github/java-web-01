@@ -48,7 +48,7 @@
 
     <form method="post" class="am-form" action="${ctx}/login">
       <label for="email">邮箱:</label>
-      <input type="email" name="username" id="email" value="">
+      <input type="text" name="username" id="email" value="">
       <br>
       <label for="password">密码:</label>
       <input type="password" name="password" id="password" value="">
