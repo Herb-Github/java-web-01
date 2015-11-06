@@ -34,9 +34,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
         return mongoTemplate.findOne(new Query(Criteria.where("userName").is(userName)), User.class);
     }
 
-    /**
-     * 认证回调函数,登录时调用.
-     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken authcToken) throws AuthenticationException {
@@ -66,9 +63,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
         return null;
     }
 
-    /**
-     * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
-     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
@@ -102,9 +96,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
         return info;
     }
 
-    /**
-     * 设定Password校验的Hash算法与迭代次数.
-     */
     @PostConstruct
     public void initCredentialsMatcher() {
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(
@@ -113,9 +104,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         setCredentialsMatcher(matcher);
     }
 
-    /**
-     * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
-     */
+
     public static class ShiroUser implements Serializable {
         private static final long serialVersionUID = -1373760761780840081L;
         public String id;
@@ -135,7 +124,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         }
 
         /**
-         * 本函数输出将作为默认的<shiro:principal/>输出.
+         * <shiro:principal/>
          */
         @Override
         public String toString() {

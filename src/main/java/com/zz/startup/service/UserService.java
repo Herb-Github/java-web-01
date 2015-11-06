@@ -16,7 +16,7 @@ public class UserService extends BaseService<User, String> {
 
     public void createUser(User user){
         entryptPassword(user);
-        super.save(user);
+        userDao.save(user);
     }
 
     public void entryptPassword(User user) {

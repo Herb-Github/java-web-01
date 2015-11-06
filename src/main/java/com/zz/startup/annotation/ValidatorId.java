@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 @Documented
 @NotBlank
-@Size(min = 5, max = 10)
+@Size(min = 20, max = 30)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE, ElementType.LOCAL_VARIABLE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { })

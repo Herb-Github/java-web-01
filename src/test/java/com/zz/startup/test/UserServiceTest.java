@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-config.xml")
 public class UserServiceTest {
@@ -19,10 +21,10 @@ public class UserServiceTest {
     @Test
     public void testCreateUser() {
         User user = new User();
-        user.setId("1");
-        user.setEmail("admin@admin.com");
+        user.setCreationTime(new Date());
+        user.setEmail("yxb@admin.com");
         user.setPlainPassword("111111");
-        user.setUserName("admin");
+        user.setUserName("yxb");
         user.setPermissions(Lists.newArrayList("*:*"));
 
         userService.createUser(user);
