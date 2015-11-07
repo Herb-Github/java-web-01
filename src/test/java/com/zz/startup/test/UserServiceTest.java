@@ -20,13 +20,15 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUser() {
-        User user = new User();
-        user.setCreationTime(new Date());
-        user.setEmail("yxb@admin.com");
-        user.setPlainPassword("111111");
-        user.setUserName("yxb");
-        user.setPermissions(Lists.newArrayList("*:*"));
+        for (int i = 0; i < 100; i++) {
+            User user = new User();
+            user.setCreationTime(new Date());
+            user.setEmail("yxb" + i + "@admin.com");
+            user.setPlainPassword("111111");
+            user.setUserName("yxb" + i);
+            user.setPermissions(Lists.newArrayList("*:*"));
 
-        userService.createUser(user);
+            userService.createUser(user);
+        }
     }
 }

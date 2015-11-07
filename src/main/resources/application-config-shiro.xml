@@ -51,8 +51,6 @@
                 /validateCaptcha = anon
                 /favicon.ico = anon,noSessionCreation
                 /assets/** = anon,noSessionCreation
-                /api/mobile/** = anon,noSessionCreation
-                /** = anon
                 /** = user
             </value>
         </property>
