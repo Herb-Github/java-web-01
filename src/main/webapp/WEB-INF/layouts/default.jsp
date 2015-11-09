@@ -44,6 +44,19 @@
     </div>
   </div>
 
+  <div class="am-modal am-modal-confirm" tabindex="-1" id="delete-confirm">
+    <div class="am-modal-dialog">
+      <div class="am-modal-hd">删除</div>
+      <div class="am-modal-bd">
+        你，确定要删除这条记录吗？
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+      </div>
+    </div>
+  </div>
+
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
   <!--[if lt IE 9]>

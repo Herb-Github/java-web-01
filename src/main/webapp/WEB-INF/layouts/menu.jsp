@@ -20,8 +20,8 @@
           <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
         </ul>
       </li>
-      <li><a href="${ctx}/service"><span class="am-icon-table"></span> 服务列表</a></li>
-      <li><a href="${ctx}/server"><span class="am-icon-pencil-square-o"></span> 机器列表</a></li>
+      <li><a href="${ctx}/service/"><span class="am-icon-table"></span> 服务列表</a></li>
+      <li><a href="${ctx}/server/"><span class="am-icon-pencil-square-o"></span> 机器列表</a></li>
       <li><a href="${ctx}/logout"><span class="am-icon-sign-out"></span> 退出</a></li>
     </ul>
     <div class="am-panel am-panel-default admin-sidebar-panel">

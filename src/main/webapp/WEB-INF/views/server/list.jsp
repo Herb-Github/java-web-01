@@ -4,24 +4,24 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <div class="am-cf am-padding">
-  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户</strong> /
+  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">服务器</strong> /
     <small>列表</small>
   </div>
 </div>
 
 <div class="am-g">
-  <form action="${ctx}/user/">
+  <form action="${ctx}/server/">
     <div class="am-u-sm-12 am-u-md-6">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
-          <a type="button" class="am-btn am-btn-default" href="${ctx}/user/new"><span class="am-icon-plus"></span>
+          <a type="button" class="am-btn am-btn-default" href="${ctx}/server/new"><span class="am-icon-plus"></span>
             新增</a>
         </div>
       </div>
     </div>
     <div class="am-u-sm-12 am-u-md-6">
       <div class="am-input-group am-input-group-sm">
-        <input type="text" name="criteria_LIKE_userName" value="${param.criteria_LIKE_userName}"
+        <input type="text" name="criteria_LIKE_ip" value="${param.criteria_LIKE_ip}"
                class="am-form-field">
             <span class="am-input-group-btn">
               <button class="am-btn am-btn-default" type="submit">搜索</button>
@@ -39,32 +39,34 @@
         <tr>
           <th class="table-check"><input type="checkbox"/></th>
           <th class="table-id">id</th>
-          <th class="table-title">用户名</th>
-          <th class="table-type">邮箱</th>
+          <th class="table-title">ip地址</th>
+          <th class="table-title">登录名</th>
+          <th class="table-title">登录密码</th>
           <th class="table-author am-hide-sm-only">创建日期</th>
           <th class="table-date am-hide-sm-only">修改日期</th>
           <th class="table-set">操作</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${users.content}" var="user" varStatus="status">
+        <c:forEach items="${servers.content}" var="server" varStatus="status">
           <tr>
             <td><input type="checkbox"/></td>
             <td>${status.index + 1}</td>
-            <td>${user.userName}</td>
-            <td>${user.email}</td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
+            <td>${server.ip}</td>
+            <td>${server.loginName}</td>
+            <td>${server.loginPwd}</td>
+            <td class="am-hide-sm-only"><fmt:formatDate value="${server.creationTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${user.modifiedTime}"
+            <td class="am-hide-sm-only"><fmt:formatDate value="${server.modifiedTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
-                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/user/edit/${user.id}"><span
+                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/server/edit/${server.id}"><span
                           class="am-icon-pencil-square-o"></span> 编辑
                   </a>
                   <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-model"
-                     data-href="${ctx}/user/delete/${user.id}" href="javascript:void(0);"><span
+                     data-href="${ctx}/server/delete/${server.id}" href="javascript:void(0);"><span
                           class="am-icon-trash-o"></span> 删除
                   </a>
                 </div>
@@ -74,7 +76,7 @@
         </c:forEach>
         </tbody>
       </table>
-      <tags:page page="${users}" paginationSize="5"/>
+      <tags:page page="${servers}" paginationSize="5"/>
     </form>
   </div>
 </div>
