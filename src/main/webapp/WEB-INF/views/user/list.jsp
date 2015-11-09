@@ -51,7 +51,7 @@
           <tr>
             <td><input type="checkbox"/></td>
             <td>${status.index + 1}</td>
-            <td><a href="#">${user.userName}</a></td>
+            <td><a href="${ctx}/user/${user.id}">${user.userName}</a></td>
             <td>${user.email}</td>
             <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -63,7 +63,7 @@
                   <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/user/edit/${user.id}"><span
                           class="am-icon-pencil-square-o"></span> 编辑
                   </a>
-                  <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span
+                  <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" href="${ctx}/user/delete/${user.id}"><span
                           class="am-icon-trash-o"></span> 删除
                   </a>
                 </div>
@@ -74,8 +74,6 @@
         </tbody>
       </table>
       <tags:page page="${users}" paginationSize="5"/>
-      <hr/>
-      <p>注：.....</p>
     </form>
   </div>
 </div>

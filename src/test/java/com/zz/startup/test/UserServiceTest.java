@@ -8,8 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springside.modules.persistence.SearchFilter;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-config.xml")
@@ -18,7 +20,6 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    @Test
     public void testCreateUser() {
         for (int i = 0; i < 100; i++) {
             User user = new User();
@@ -30,5 +31,11 @@ public class UserServiceTest {
 
             userService.createUser(user);
         }
+    }
+
+    @Test
+    public void test_deleteUser(){
+        List<User> users = userService.findBy("userName", SearchFilter.Operator.LIKE, "yxb");
+        userService.delete(users);
     }
 }

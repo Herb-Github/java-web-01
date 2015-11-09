@@ -10,7 +10,7 @@
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span
                 class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+        <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
           <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
                   class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
           <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
@@ -20,9 +20,9 @@
           <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
         </ul>
       </li>
-      <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-      <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
-      <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
+      <li><a href="${ctx}/service"><span class="am-icon-table"></span> 服务列表</a></li>
+      <li><a href="${ctx}/server"><span class="am-icon-pencil-square-o"></span> 机器列表</a></li>
+      <li><a href="${ctx}/logout"><span class="am-icon-sign-out"></span> 退出</a></li>
     </ul>
     <div class="am-panel am-panel-default admin-sidebar-panel">
       <div class="am-panel-bd">

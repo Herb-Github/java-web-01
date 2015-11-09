@@ -1,5 +1,6 @@
 package com.zz.startup.service;
 
+import com.google.common.collect.Lists;
 import com.zz.startup.entity.User;
 import com.zz.startup.repository.UserDao;
 import com.zz.startup.util.Constants;
@@ -15,15 +16,19 @@ public class UserService extends BaseService<User, String> {
     private UserDao userDao;
 
     public void createUser(User user){
+        user.setStatus(Constants.USER_STATUS_ENABLE);
+        user.setPermissions(Lists.newArrayList("*:*"));
+
         entryptPassword(user);
         userDao.save(user);
     }
 
-    public void entryptPassword(User user) {
+    private void entryptPassword(User user) {
         byte[] salt = Digests.generateSalt(Constants.SALT_SIZE);
         user.setSalt(Encodes.encodeHex(salt));
 
         byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, Constants.HASH_INTERATIONS);
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
+
 }

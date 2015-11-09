@@ -75,9 +75,9 @@ public abstract class BaseService<M, ID extends Serializable> {
         return baseDao.save(entites);
     }
 
-    public M update(ID id, M m) {
+    public M update(ID id, M entity) {
         M existM = get(id);
-        copyNonNullProperties(m, existM);
+        copyNonNullProperties(entity, existM);
         baseDao.save(existM);
         return existM;
     }
@@ -88,6 +88,10 @@ public abstract class BaseService<M, ID extends Serializable> {
 
     public void delete(ID id) {
         baseDao.delete(id);
+    }
+
+    public void delete(Collection<M> entitys) {
+        baseDao.delete(entitys);
     }
 
     protected Query buildQuery(Map<String, SearchFilter> filters) {

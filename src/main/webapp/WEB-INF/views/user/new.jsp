@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <div class="am-cf am-padding">
-  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户</strong> /
+  <div class="am-fl am-cf"><a href="${ctx}/user/"> <strong class="am-text-primary am-text-lg">用户</strong></a> /
     <small>新建用户</small>
   </div>
 </div>
@@ -10,61 +10,34 @@
 
 <div class="am-g">
   <div class="am-u-sm-12 am-u-md-8">
-    <form class="am-form am-form-horizontal">
+    <form class="am-form am-form-horizontal" action="${ctx}/user/create" method="post">
       <div class="am-form-group">
-        <label for="user-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
+        <label for="user-name" class="am-u-sm-3 am-form-label">姓名</label>
 
         <div class="am-u-sm-9">
-          <input type="text" id="user-name" placeholder="姓名 / Name">
-          <small>输入你的名字，让我们记住你。</small>
+          <input type="text" id="user-name" name="userName" placeholder="姓名 / Name" required />
         </div>
       </div>
 
       <div class="am-form-group">
-        <label for="user-email" class="am-u-sm-3 am-form-label">电子邮件 / Email</label>
+        <label for="user-email" class="am-u-sm-3 am-form-label">email</label>
 
         <div class="am-u-sm-9">
-          <input type="email" id="user-email" placeholder="输入你的电子邮件 / Email">
-          <small>邮箱你懂得...</small>
+          <input type="email" id="user-email" name="email" placeholder="电子邮件 / Email" required>
         </div>
       </div>
 
       <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
+        <label for="user-password" class="am-u-sm-3 am-form-label">密码</label>
 
         <div class="am-u-sm-9">
-          <input type="email" id="user-phone" placeholder="输入你的电话号码 / Telephone">
-        </div>
-      </div>
-
-      <div class="am-form-group">
-        <label for="user-QQ" class="am-u-sm-3 am-form-label">QQ</label>
-
-        <div class="am-u-sm-9">
-          <input type="email" id="user-QQ" placeholder="输入你的QQ号码">
-        </div>
-      </div>
-
-      <div class="am-form-group">
-        <label for="user-weibo" class="am-u-sm-3 am-form-label">微博 / Twitter</label>
-
-        <div class="am-u-sm-9">
-          <input type="email" id="user-weibo" placeholder="输入你的微博 / Twitter">
-        </div>
-      </div>
-
-      <div class="am-form-group">
-        <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
-
-        <div class="am-u-sm-9">
-          <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介"></textarea>
-          <small>250字以内写出你的一生...</small>
+          <input type="password" id="user-password" name="plainPassword" placeholder="密码">
         </div>
       </div>
 
       <div class="am-form-group">
         <div class="am-u-sm-9 am-u-sm-push-3">
-          <button type="button" class="am-btn am-btn-primary">保存修改</button>
+          <button type="submit" class="am-btn am-btn-primary">保存</button>
         </div>
       </div>
     </form>

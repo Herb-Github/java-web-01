@@ -20,6 +20,8 @@ public class User extends BaseEntity {
     private List<Role> roleList;
     private List<String> permissions;
 
+    private String status;
+
     public String getUserName() {
         return userName;
     }
@@ -76,4 +78,11 @@ public class User extends BaseEntity {
         this.permissions = permissions;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

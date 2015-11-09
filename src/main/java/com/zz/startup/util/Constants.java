@@ -11,4 +11,6 @@ public class Constants {
 
     public static final String SEARCH_PREFIX = "criteria_";
 
+    public static final String USER_STATUS_ENABLE = "enable";
+
 }
