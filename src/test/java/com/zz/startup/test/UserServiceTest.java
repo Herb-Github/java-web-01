@@ -20,7 +20,7 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    public void testCreateUser() {
+    public void test_createUser() {
         for (int i = 0; i < 100; i++) {
             User user = new User();
             user.setCreationTime(new Date());

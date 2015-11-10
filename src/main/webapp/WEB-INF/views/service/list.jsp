@@ -11,7 +11,7 @@
 
 <div class="am-g">
   <form action="${ctx}/service/">
-    <div class="am-u-sm-12 am-u-md-6">
+    <div class="am-u-sm-12 am-u-md-3">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
           <a type="button" class="am-btn am-btn-default" href="${ctx}/service/new"><span class="am-icon-plus"></span>
@@ -21,7 +21,7 @@
     </div>
     <div class="am-u-sm-12 am-u-md-3">
       <div class="am-form-group">
-        <select name="criteria_EQ_serverId" data-am-selected="{searchBox: 1, btnSize: 'sm'}">
+        <select name="criteria_EQ_serverId" data-am-selected="{searchBox: 1, btnSize: 'sm', maxHeight: 200}">
           <option value="">无</option>
           <c:forEach items="${servers}" var="server">
             <option value="${server.id}" <c:if test="${server.id eq param.criteria_EQ_serverId}">selected</c:if>>${server.ip}</option>

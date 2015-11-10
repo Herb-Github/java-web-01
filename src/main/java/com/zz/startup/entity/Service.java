@@ -18,7 +18,7 @@ public class Service extends BaseEntity {
     private String aliasName;
     @NotBlank
     private String path;
-    private int port;
+    private String port;
 
     private String otherConfig; // 其他配置
 
@@ -64,11 +64,11 @@ public class Service extends BaseEntity {
         this.path = path;
     }
 
-    public int getPort() {
+    public String getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(String port) {
         this.port = port;
     }
 

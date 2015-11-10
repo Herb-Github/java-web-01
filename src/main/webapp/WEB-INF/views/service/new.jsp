@@ -15,23 +15,23 @@
       <div class="am-form-group">
         <label for="name" class="am-u-sm-3 am-form-label">名称</label>
         <div class="am-u-sm-9">
-          <input type="text" id="name" name="name" required />
+          <input type="text" id="name" name="name" value="${service.name}" required />
         </div>
       </div>
 
       <div class="am-form-group">
         <label for="aliasName" class="am-u-sm-3 am-form-label">别名</label>
         <div class="am-u-sm-9">
-          <input type="text" id="aliasName" name="aliasName" />
+          <input type="text" id="aliasName" name="aliasName" value="${service.aliasName}" />
         </div>
       </div>
 
       <div class="am-form-group">
         <label for="serverId" class="am-u-sm-3 am-form-label">所属服务器</label>
         <div class="am-u-sm-9">
-          <select id="serverId" name="serverId" data-am-selected="{searchBox: 1}">
+          <select id="serverId" name="serverId" data-am-selected="{searchBox: 1, maxHeight: 200}">
             <c:forEach items="${servers}" var="server">
-              <option value="${server.id}">${server.ip}</option>
+              <option value="${server.id}" <c:if test="${server.id eq service.serverId}">selected</c:if>>${server.ip}</option>
             </c:forEach>
           </select>
         </div>
@@ -40,14 +40,14 @@
       <div class="am-form-group">
         <label for="path" class="am-u-sm-3 am-form-label">路径</label>
         <div class="am-u-sm-9">
-          <input type="text" id="path" name="path" required />
+          <input type="text" id="path" name="path" value="${service.path}" required />
         </div>
       </div>
 
       <div class="am-form-group">
         <label for="port" class="am-u-sm-3 am-form-label">端口号</label>
         <div class="am-u-sm-9">
-          <input type="text" id="port" name="port" required />
+          <input type="text" id="port" name="port" value="${service.port}" required />
         </div>
       </div>
 

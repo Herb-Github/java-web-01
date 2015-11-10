@@ -11,7 +11,7 @@
 
 <div class="am-g">
   <form action="${ctx}/server/">
-    <div class="am-u-sm-12 am-u-md-6">
+    <div class="am-u-sm-12 am-u-md-3">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
           <a type="button" class="am-btn am-btn-default" href="${ctx}/server/new"><span class="am-icon-plus"></span>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="am-u-sm-12 am-u-md-6">
+    <div class="am-u-sm-12 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
         <input type="text" name="criteria_LIKE_ip" value="${param.criteria_LIKE_ip}"
                class="am-form-field">

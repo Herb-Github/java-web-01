@@ -3,12 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<c:set var="selectedMenu" scope="request">
-  <sitemesh:getProperty property='meta.menu'/>
-</c:set>
-<c:set var="subMenu" scope="request">
-  <sitemesh:getProperty property='meta.subMenu'/>
-</c:set>
 
 <!doctype html>
 <html class="no-js fixed-layout">

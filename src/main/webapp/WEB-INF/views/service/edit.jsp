@@ -29,7 +29,7 @@
       <div class="am-form-group">
         <label for="serverId" class="am-u-sm-3 am-form-label">所属服务器</label>
         <div class="am-u-sm-9">
-          <select id="serverId" name="serverId" data-am-selected="{searchBox: 1}">
+          <select id="serverId" name="serverId" data-am-selected="{searchBox: 1, maxHeight: 200}">
             <c:forEach items="${servers}" var="server">
               <option value="${server.id}" <c:if test="${server.id eq service.serverId}">selected</c:if>>${server.ip}</option>
             </c:forEach>

@@ -36,6 +36,13 @@
       </div>
 
       <div class="am-form-group">
+        <label for="server-summary" class="am-u-sm-3 am-form-label">摘要</label>
+        <div class="am-u-sm-9">
+          <textarea class="" rows="5" id="server-summary" name="summary" placeholder="摘要"></textarea>
+        </div>
+      </div>
+
+      <div class="am-form-group">
         <div class="am-u-sm-9 am-u-sm-push-3">
           <button type="submit" class="am-btn am-btn-primary">保存</button>
         </div>
