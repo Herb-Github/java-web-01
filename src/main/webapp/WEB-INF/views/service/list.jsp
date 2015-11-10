@@ -10,7 +10,7 @@
 </div>
 
 <div class="am-g">
-  <form action="${ctx}/user/">
+  <form action="${ctx}/service/">
     <div class="am-u-sm-12 am-u-md-6">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
@@ -19,7 +19,17 @@
         </div>
       </div>
     </div>
-    <div class="am-u-sm-12 am-u-md-6">
+    <div class="am-u-sm-12 am-u-md-3">
+      <div class="am-form-group">
+        <select name="criteria_EQ_serverId" data-am-selected="{searchBox: 1, btnSize: 'sm'}">
+          <option value="">无</option>
+          <c:forEach items="${servers}" var="server">
+            <option value="${server.id}" <c:if test="${server.id eq param.criteria_EQ_serverId}">selected</c:if>>${server.ip}</option>
+          </c:forEach>
+        </select>
+      </div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
         <input type="text" name="criteria_LIKE_name" value="${param.criteria_LIKE_name}"
                class="am-form-field">
@@ -39,12 +49,11 @@
         <tr>
           <th class="table-check"><input type="checkbox"/></th>
           <th class="table-id">id</th>
+          <th class="table-title">服务器ip</th>
           <th class="table-title">服务名称</th>
           <th class="table-type">服务别名</th>
-          <th class="table-type">服务路径</th>
           <th class="table-type">服务端口</th>
           <th class="table-author am-hide-sm-only">创建日期</th>
-          <th class="table-date am-hide-sm-only">修改日期</th>
           <th class="table-set">操作</th>
         </tr>
         </thead>
@@ -53,18 +62,16 @@
           <tr>
             <td><input type="checkbox"/></td>
             <td>${status.index + 1}</td>
+            <td><a href="${ctx}/server/${servcie.serverId}"> ${servcie.serverIp}</a></td>
             <td>${servcie.name}</td>
             <td>${servcie.aliasName}</td>
-            <td>${servcie.path}</td>
             <td>${servcie.port}</td>
             <td class="am-hide-sm-only"><fmt:formatDate value="${servcie.creationTime}"
-                                                        pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${servcie.modifiedTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
-                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/servcie/edit/${servcie.id}"><span
+                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/service/edit/${servcie.id}"><span
                           class="am-icon-pencil-square-o"></span> 编辑
                   </a>
                   <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-model"

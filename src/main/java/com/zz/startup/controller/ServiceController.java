@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,9 @@ public class ServiceController {
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
         Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
         Page<Service> services = serviceService.findPage(filters, pageable);
+
+        serviceService.buildServerIp(services);
+
         model.addAttribute("services", services);
 
         return "service/list";
@@ -50,9 +54,7 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
-    public String _new(Model model) {
-        List<Server> servers = serverService.findAll();
-        model.addAttribute("servers", servers);
+    public String _new() {
         return "service/new";
     }
 
@@ -70,12 +72,8 @@ public class ServiceController {
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public String edit(@ValidatorId @PathVariable("id") String id, Model model) {
-        List<Server> servers = serverService.findAll();
         Service service = serviceService.get(id);
-
         model.addAttribute("service", service);
-        model.addAttribute("servers", servers);
-
         return "service/edit";
     }
 
@@ -97,5 +95,10 @@ public class ServiceController {
 
         redirectAttributes.addFlashAttribute("msg", "删除服务成功");
         return "redirect:/service/";
+    }
+
+    @ModelAttribute("servers")
+    private List<Server> getAllServers(){
+        return serverService.findAll();
     }
 }

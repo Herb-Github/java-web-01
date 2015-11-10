@@ -53,6 +53,10 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <bean class="com.zz.startup.controller.interceptor.StopWatchInterceptor" />
+    </mvc:interceptors>
+
     <mvc:view-controller path="/" view-name="redirect:/main"/>
 
     <mvc:default-servlet-handler/>

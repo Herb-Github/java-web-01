@@ -1,6 +1,7 @@
 package com.zz.startup.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.Transient;
 
 /**
  * 代表一个服务,如tomcat,mysql等
@@ -9,13 +10,14 @@ public class Service extends BaseEntity {
 
     @NotBlank
     private String serverId;
+    @Transient
+    private String serverIp;
 
     @NotBlank
     private String name;
     private String aliasName;
     @NotBlank
     private String path;
-    @NotBlank
     private int port;
 
     private String otherConfig; // 其他配置
@@ -28,6 +30,14 @@ public class Service extends BaseEntity {
 
     public void setServerId(String serverId) {
         this.serverId = serverId;
+    }
+
+    public String getServerIp() {
+        return serverIp;
+    }
+
+    public void setServerIp(String serverIp) {
+        this.serverIp = serverIp;
     }
 
     public String getName() {
