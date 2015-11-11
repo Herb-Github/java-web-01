@@ -1,5 +1,6 @@
 package com.zz.startup.entity;
 
+import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -11,6 +12,7 @@ public class User extends BaseEntity {
     private static final long serialVersionUID = 6478593744952785316L;
 
     @NotEmpty(message = "用户名不能为空")
+    @Unique
     private String username;
     private String password;
     private String salt;
@@ -19,7 +21,7 @@ public class User extends BaseEntity {
     private List<Role> roles;
     private List<String> permissions;
 
-    private String status;  //enable, disable
+    private String status;  // [enable|disable]
 
     @Transient
     private String plainPassword;

@@ -1,5 +1,6 @@
 package com.zz.startup.entity;
 
+import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public class Authority extends BaseEntity {
 
     @NotEmpty
+    @Unique
     private String name;
     @NotEmpty
     private String permission;

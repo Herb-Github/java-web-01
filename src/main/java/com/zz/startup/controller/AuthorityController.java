@@ -19,6 +19,7 @@ import org.springside.modules.web.Servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,9 +32,8 @@ public class AuthorityController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
         Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
-        Page<Authority> authoritys = authorityService.findPage(filters, pageable);
-        model.addAttribute("authoritys", authoritys);
-
+        Page<Authority> authorities = authorityService.findPage(filters, pageable);
+        model.addAttribute("authorities", authorities);
         return "authority/list";
     }
 
@@ -45,7 +45,9 @@ public class AuthorityController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
-    public String _new() {
+    public String _new(Model model) {
+        List<Authority> authorities = authorityService.findAll();
+        model.addAttribute("authorities", authorities);
         return "authority/new";
     }
 
@@ -55,7 +57,7 @@ public class AuthorityController {
             return "authority/new";
         }
 
-        authorityService.save(authority);
+        authorityService.createAuthority(authority);
 
         redirectAttributes.addFlashAttribute("msg", "新增权限成功");
         return "redirect:/authority/";
@@ -81,11 +83,4 @@ public class AuthorityController {
         return "redirect:/authority/";
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") String id, RedirectAttributes redirectAttributes) {
-        authorityService.delete(id);
-
-        redirectAttributes.addFlashAttribute("msg", "删除权限成功");
-        return "redirect:/authority/";
-    }
 }

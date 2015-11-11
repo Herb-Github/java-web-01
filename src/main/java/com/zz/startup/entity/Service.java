@@ -1,5 +1,6 @@
 package com.zz.startup.entity;
 
+import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Transient;
 
@@ -14,6 +15,7 @@ public class Service extends BaseEntity {
     private String serverIp;
 
     @NotBlank
+    @Unique
     private String name;
     private String aliasName;
     @NotBlank

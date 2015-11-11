@@ -1,5 +1,6 @@
 package com.zz.startup.entity;
 
+import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class Server extends BaseEntity {
 
     @NotBlank
+    @Unique
     private String ip;
     private List<String> openPorts; // 防火墙开放端口
     private String loginName;

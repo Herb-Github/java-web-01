@@ -55,6 +55,7 @@ public class RoleController {
             return "role/new";
         }
 
+        role.setStatus(Constants.ROLE_STATUS_ENABLE);
         roleService.save(role);
 
         redirectAttributes.addFlashAttribute("msg", "新增角色成功");
@@ -78,14 +79,6 @@ public class RoleController {
         roleService.update(id, role);
 
         redirectAttributes.addFlashAttribute("msg", "更新角色成功");
-        return "redirect:/role/";
-    }
-
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") String id, RedirectAttributes redirectAttributes) {
-        roleService.delete(id);
-
-        redirectAttributes.addFlashAttribute("msg", "删除角色成功");
         return "redirect:/role/";
     }
 }

@@ -14,5 +14,6 @@ public class Constants {
     public static final String USER_STATUS_ENABLE = "enable";
     public static final String USER_STATUS_DISABLE = "disable";
 
-
+    public static final String ROLE_STATUS_ENABLE = "enable";
+    public static final String ROLE_STATUS_DISABLE = "disable";
 }
