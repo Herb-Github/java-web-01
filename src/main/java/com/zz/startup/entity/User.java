@@ -9,25 +9,27 @@ import java.util.List;
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 6478593744952785316L;
-    @NotEmpty(message = "姓名不能为空")
-    private String userName;
-    @Transient
-    private String plainPassword;
+
+    @NotEmpty(message = "用户名不能为空")
+    private String username;
     private String password;
     private String salt;
     private String email;
     @DBRef
-    private List<Role> roleList;
+    private List<Role> roles;
     private List<String> permissions;
 
-    private String status;
+    private String status;  //enable, disable
 
-    public String getUserName() {
-        return userName;
+    @Transient
+    private String plainPassword;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -38,12 +40,12 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String getSalt() {

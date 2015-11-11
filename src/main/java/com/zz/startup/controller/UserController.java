@@ -1,9 +1,14 @@
 package com.zz.startup.controller;
 
+import com.google.common.collect.Lists;
 import com.zz.startup.annotation.ValidatorId;
+import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
+import com.zz.startup.service.RoleService;
 import com.zz.startup.service.UserService;
 import com.zz.startup.util.Constants;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +25,8 @@ import org.springside.modules.web.Servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -29,6 +36,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
@@ -86,6 +95,63 @@ public class UserController {
         userService.delete(id);
 
         redirectAttributes.addFlashAttribute("msg", "删除用户成功");
+        return "redirect:/user/";
+    }
+
+    @RequestMapping(value = "edit/{id}/role", method = RequestMethod.GET)
+    public String editRole(@ValidatorId @PathVariable("id") String id, Model model) {
+        User user = userService.get(id);
+        List<Role> roles = roleService.findAll();
+
+        if (user.getRoles() != null) {
+            for (Role userRole : user.getRoles()) {
+                for (Role role : roles) {
+                    if (userRole.equals(role)) {
+                        role.setChecked(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+
+        return "user/edit_role";
+    }
+
+    @RequestMapping(value = "update/{id}/role", method = RequestMethod.POST)
+    public String updateRole(@ValidatorId @PathVariable("id") String id, String[] roleIds, RedirectAttributes redirectAttributes) {
+        User user = userService.get(id);
+        if (ArrayUtils.isEmpty(roleIds)) {
+            user.setRoles(new ArrayList<Role>());
+        } else {
+            List<Role> roles = roleService.get(Lists.newArrayList(roleIds));
+            user.setRoles(roles);
+        }
+
+        userService.save(user);
+
+        redirectAttributes.addFlashAttribute("msg", "更新用户角色成功");
+        return "redirect:/user/";
+    }
+
+    @RequestMapping(value = "edit/{id}/permission", method = RequestMethod.GET)
+    public String editPermission(@ValidatorId @PathVariable("id") String id, Model model) {
+        User user = userService.get(id);
+        model.addAttribute("user", user);
+
+        return "user/edit_permission";
+    }
+
+    @RequestMapping(value = "update/{id}/permission", method = RequestMethod.POST)
+    public String updatePermission(@ValidatorId @PathVariable("id") String id, String permission, RedirectAttributes redirectAttributes) {
+        User user = userService.get(id);
+        String[] permissions = StringUtils.split(permission, ",");
+        user.setPermissions(Lists.newArrayList(permissions));
+        userService.save(user);
+
+        redirectAttributes.addFlashAttribute("msg", "更新用户权限成功");
         return "redirect:/user/";
     }
 }

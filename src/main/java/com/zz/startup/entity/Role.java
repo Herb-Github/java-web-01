@@ -1,6 +1,7 @@
 package com.zz.startup.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.List;
@@ -9,11 +10,14 @@ public class Role extends BaseEntity {
 
     @NotEmpty
     private String roleName;
-    @NotEmpty
-    private String roleCode;
-    private List<String> permissions;
+    private String aliasName;
     @DBRef
     private List<Authority> authorities;
+
+    private String status;      // enable, disable
+
+    @Transient
+    private boolean checked;
 
     public String getRoleName() {
         return roleName;
@@ -23,20 +27,12 @@ public class Role extends BaseEntity {
         this.roleName = roleName;
     }
 
-    public String getRoleCode() {
-        return roleCode;
+    public String getAliasName() {
+        return aliasName;
     }
 
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
     }
 
     public List<Authority> getAuthorities() {
@@ -45,6 +41,14 @@ public class Role extends BaseEntity {
 
     public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     @Override

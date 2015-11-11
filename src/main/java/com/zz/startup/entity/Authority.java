@@ -6,72 +6,72 @@ import java.util.List;
 
 public class Authority extends BaseEntity {
 
-	@NotEmpty
-	private String name;
-	@NotEmpty
-	private String permission;
-	private String parentId;
-	private List<String> children;
-	private String desc;
+    @NotEmpty
+    private String name;
+    @NotEmpty
+    private String permission;
+    private String parentId;
+    private List<String> children;
+    private String summary;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPermission() {
-		return permission;
-	}
+    public String getPermission() {
+        return permission;
+    }
 
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
-	public String getDesc() {
-		return desc;
-	}
+    public String getSummary() {
+        return summary;
+    }
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
-	public String getParentId() {
-		return parentId;
-	}
+    public String getParentId() {
+        return parentId;
+    }
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-	public List<String> getChildren() {
-		return children;
-	}
+    public List<String> getChildren() {
+        return children;
+    }
 
-	public void setChildren(List<String> children) {
-		this.children = children;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if(o == null){
+    public void setChildren(List<String> children) {
+        this.children = children;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
             return false;
         }
-        if (o == this){
-           return true;
+        if (o == this) {
+            return true;
         }
-        if (getClass() != o.getClass()){
+        if (getClass() != o.getClass()) {
             return false;
         }
-        Authority a = (Authority)o;
+        Authority a = (Authority) o;
         return a.getId().equals(getId());
-	}
-	
-	public int hashCode() {
-		int hash = 7;
-		hash = 31 * hash + (null == getId() ? 0 : getId().hashCode());
-		return hash;
-	}
+    }
+
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (null == getId() ? 0 : getId().hashCode());
+        return hash;
+    }
 }

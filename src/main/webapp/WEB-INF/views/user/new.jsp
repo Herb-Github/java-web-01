@@ -15,7 +15,7 @@
         <label for="user-name" class="am-u-sm-3 am-form-label">姓名</label>
 
         <div class="am-u-sm-9">
-          <input type="text" id="user-name" name="userName" placeholder="姓名 / Name" required />
+          <input type="text" id="user-name" name="username" placeholder="姓名 / Name" required />
         </div>
       </div>
 

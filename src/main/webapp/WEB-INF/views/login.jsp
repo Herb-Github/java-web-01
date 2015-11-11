@@ -47,14 +47,14 @@
     <br>
 
     <form method="post" class="am-form" action="${ctx}/login">
-      <label for="email">邮箱:</label>
-      <input type="text" name="username" id="email" value="">
+      <label for="username">用户名:</label>
+      <input type="text" name="username" id="username" value="">
       <br>
       <label for="password">密码:</label>
       <input type="password" name="password" id="password" value="">
       <br>
       <label for="remember-me">
-        <input id="remember-me" name="remeberMe" type="checkbox">
+        <input id="remember-me" name="rememberMe" value="true" type="checkbox">
         记住密码
       </label>
       <br/>

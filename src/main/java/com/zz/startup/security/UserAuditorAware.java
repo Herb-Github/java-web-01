@@ -24,7 +24,7 @@ public class UserAuditorAware implements AuditorAware<User> {
 
         User u = new User();
         u.setId(user.id);
-        u.setUserName(user.userName);
+        u.setUsername(user.username);
         return u;
     }
 

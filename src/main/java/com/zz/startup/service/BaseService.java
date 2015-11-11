@@ -1,5 +1,6 @@
 package com.zz.startup.service;
 
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import com.zz.startup.repository.BaseDao;
 import org.slf4j.Logger;
@@ -35,6 +36,13 @@ public abstract class BaseService<M, ID extends Serializable> {
         return baseDao.findOne(id);
     }
 
+    public List<M> get(Collection<ID> ids) {
+        Iterable<M> elements = baseDao.findAll(ids);
+        List<M> models = new ArrayList<>();
+        Iterators.addAll(models, elements.iterator());
+        return models;
+    }
+
     public Page<M> findPage(Map<String, SearchFilter> filters, Pageable pageable) {
         Query query = buildQuery(filters);
         Class<M> clazz = Reflections.getClassGenricType(getClass());
@@ -49,6 +57,16 @@ public abstract class BaseService<M, ID extends Serializable> {
         SearchFilter sf = new SearchFilter(key, operator, value);
         filters.put(key, sf);
         return findBySearchFilter(filters);
+    }
+
+    public M findOne(String key, SearchFilter.Operator operator, Object value) {
+        Map<String, SearchFilter> filters = Maps.newHashMap();
+        SearchFilter sf = new SearchFilter(key, operator, value);
+        filters.put(key, sf);
+        Class<M> clazz = Reflections.getClassGenricType(getClass());
+        Query query = buildQuery(filters);
+        query.limit(1);
+        return mongoTemplate.findOne(query, clazz);
     }
 
     public Page<M> findAll(Pageable pageable) {

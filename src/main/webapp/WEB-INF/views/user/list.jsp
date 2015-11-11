@@ -21,7 +21,7 @@
     </div>
     <div class="am-u-sm-12 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
-        <input type="text" name="criteria_LIKE_userName" value="${param.criteria_LIKE_userName}"
+        <input type="text" name="criteria_LIKE_username" value="${param.criteria_LIKE_username}"
                class="am-form-field">
             <span class="am-input-group-btn">
               <button class="am-btn am-btn-default" type="submit">搜索</button>
@@ -48,29 +48,32 @@
         </thead>
         <tbody>
         <c:forEach items="${users.content}" var="user" varStatus="status">
-          <tr>
-            <td><input type="checkbox"/></td>
-            <td>${status.index + 1}</td>
-            <td>${user.userName}</td>
-            <td>${user.email}</td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
-                                                        pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${user.modifiedTime}"
-                                                        pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td>
-              <div class="am-btn-toolbar">
-                <div class="am-btn-group am-btn-group-xs">
-                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${ctx}/user/edit/${user.id}"><span
-                          class="am-icon-pencil-square-o"></span> 编辑
-                  </a>
-                  <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-model"
-                     data-href="${ctx}/user/delete/${user.id}" href="javascript:void(0);"><span
-                          class="am-icon-trash-o"></span> 删除
-                  </a>
+          <c:if test="${user.id ne '1'}">
+            <tr>
+              <td><input type="checkbox"/></td>
+              <td>${status.index + 1}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
+                                                          pattern="yyyy-MM-dd HH:mm:ss"/></td>
+              <td class="am-hide-sm-only"><fmt:formatDate value="${user.modifiedTime}"
+                                                          pattern="yyyy-MM-dd HH:mm:ss"/></td>
+              <td>
+                <div class="am-dropdown" data-am-dropdown>
+                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
+                  <ul class="am-dropdown-content">
+                    <li><a href="${ctx}/user/edit/${user.id}"><span class="am-icon-pencil-square-o"></span> 编辑
+                    </a></li>
+                    <li><a href="${ctx}/user/edit/${user.id}/role"><span class="am-icon-pencil-square-o"></span> 编辑角色
+                    </a></li>
+                    <li><a class="delete-model" data-href="${ctx}/user/delete/${user.id}" href="javascript:void(0);">
+                      <span class="am-icon-trash-o"></span> 删除
+                    </a></li>
+                  </ul>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          </c:if>
         </c:forEach>
         </tbody>
       </table>

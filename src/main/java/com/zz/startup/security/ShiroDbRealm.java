@@ -30,8 +30,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Autowired
     protected MongoTemplate mongoTemplate;
 
-    private User findUserByUserName(String userName) {
-        return mongoTemplate.findOne(new Query(Criteria.where("userName").is(userName)), User.class);
+    private User findByUsername(String username) {
+        return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
     }
 
     @Override
@@ -52,11 +52,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
                 throw new RuntimeException("验证码错误");
             }
         }
-        User user = findUserByUserName(username);
+        User user = findByUsername(username);
         if (user != null) {
             byte[] salt = Encodes.decodeHex(user.getSalt());
             return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
-                    user.getUserName()), user.getPassword(),
+                    user.getUsername()), user.getPassword(),
                     ByteSource.Util.bytes(salt), getName());
         }
 
@@ -67,10 +67,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        User user = findUserByUserName(shiroUser.userName);
+        User user = findByUsername(shiroUser.username);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        List<Role> roles = user.getRoleList();
+        List<Role> roles = user.getRoles();
         if (roles != null) {
             for (Role role : roles) {
                 List<Authority> auths = role.getAuthorities();
@@ -82,11 +82,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
                     }
                 }
 
-                List<String> permissions = role.getPermissions();
-                if (permissions != null) {
-                    info.addStringPermissions(permissions);
-                }
-                info.addRole(role.getRoleCode());
+                info.addRole(role.getRoleName());
             }
         }
         List<String> permissions = user.getPermissions();
@@ -108,11 +104,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
     public static class ShiroUser implements Serializable {
         private static final long serialVersionUID = -1373760761780840081L;
         public String id;
-        public String userName;
+        public String username;
 
-        public ShiroUser(String id, String loginName) {
+        public ShiroUser(String id, String username) {
             this.id = id;
-            this.userName = loginName;
+            this.username = username;
         }
 
         public String getId() {
@@ -128,12 +124,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
          */
         @Override
         public String toString() {
-            return userName;
+            return username;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(userName);
+            return Objects.hashCode(username);
         }
 
         @Override
@@ -148,11 +144,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
                 return false;
             }
             ShiroUser other = (ShiroUser) obj;
-            if (userName == null) {
-                if (other.userName != null) {
+            if (username == null) {
+                if (other.username != null) {
                     return false;
                 }
-            } else if (!userName.equals(other.userName)) {
+            } else if (!username.equals(other.username)) {
                 return false;
             }
             return true;
