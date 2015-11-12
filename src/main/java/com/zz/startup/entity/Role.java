@@ -73,7 +73,7 @@ public class Role extends BaseEntity {
             return false;
         }
         Role role = (Role) o;
-        return (role != null && role.getId().equals(getId()));
+        return role != null && role.getId().equals(getId());
     }
 
     public int hashCode() {

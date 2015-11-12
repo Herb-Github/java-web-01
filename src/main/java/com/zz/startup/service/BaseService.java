@@ -3,8 +3,6 @@ package com.zz.startup.service;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import com.zz.startup.repository.BaseDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -23,8 +21,6 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class BaseService<M, ID extends Serializable> {
-
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected MongoTemplate mongoTemplate;

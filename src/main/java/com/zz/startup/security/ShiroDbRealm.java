@@ -1,9 +1,9 @@
 package com.zz.startup.security;
 
-import com.google.common.base.Objects;
 import com.zz.startup.entity.Authority;
 import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
+import com.zz.startup.exception.CustomException;
 import com.zz.startup.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -35,13 +35,13 @@ public class ShiroDbRealm extends AuthorizingRealm {
     }
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken authcToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         String username = "";
         if (authcToken instanceof UsernamePasswordToken) {
             UsernamePasswordToken upt = (UsernamePasswordToken) authcToken;
             username = upt.getUsername();
         }
+
         if (authcToken instanceof UsernamePasswordCaptchaToken) {
             UsernamePasswordCaptchaToken token = (UsernamePasswordCaptchaToken) authcToken;
             username = token.getUsername();
@@ -49,9 +49,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
             Session s = SecurityUtils.getSubject().getSession();
             String exitCode = (String) s.getAttribute("code");
             if (null == captcha || !StringUtils.equalsIgnoreCase(captcha, exitCode)) {
-                throw new RuntimeException("验证码错误");
+                throw new CustomException("验证码错误");
             }
         }
+
         User user = findByUsername(username);
         if (user != null) {
             byte[] salt = Encodes.decodeHex(user.getSalt());
@@ -64,47 +65,39 @@ public class ShiroDbRealm extends AuthorizingRealm {
     }
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(
-            PrincipalCollection principals) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         User user = findByUsername(shiroUser.username);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         List<Role> roles = user.getRoles();
-        if (roles != null) {
-            for (Role role : roles) {
-                List<Authority> auths = role.getAuthorities();
-                if (auths != null) {
-                    for (Authority auth : auths) {
-                        if (auth != null) {
-                            info.addStringPermission(auth.getPermission());
-                        }
-                    }
-                }
-
-                info.addRole(role.getRoleName());
+        for (Role role : roles) {
+            List<Authority> auths = role.getAuthorities();
+            for (Authority auth : auths) {
+                info.addStringPermission(auth.getPermission());
             }
+            info.addRole(role.getRoleName());
         }
+
         List<String> permissions = user.getPermissions();
         if (permissions != null) {
             info.addStringPermissions(permissions);
         }
+
         return info;
     }
 
     @PostConstruct
     public void initCredentialsMatcher() {
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(
-                Constants.HASH_ALGORITHM);
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Constants.HASH_ALGORITHM);
         matcher.setHashIterations(Constants.HASH_INTERATIONS);
         setCredentialsMatcher(matcher);
     }
 
-
     public static class ShiroUser implements Serializable {
         private static final long serialVersionUID = -1373760761780840081L;
-        public String id;
-        public String username;
+        private String id;
+        private String username;
 
         public ShiroUser(String id, String username) {
             this.id = id;
@@ -119,6 +112,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
             this.id = id;
         }
 
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
         /**
          * <shiro:principal/>
          */
@@ -127,31 +128,5 @@ public class ShiroDbRealm extends AuthorizingRealm {
             return username;
         }
 
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(username);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            ShiroUser other = (ShiroUser) obj;
-            if (username == null) {
-                if (other.username != null) {
-                    return false;
-                }
-            } else if (!username.equals(other.username)) {
-                return false;
-            }
-            return true;
-        }
     }
 }

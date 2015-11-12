@@ -15,16 +15,19 @@ public class UserAuditorAware implements AuditorAware<User> {
         if (securityManager == null) {
             return null;
         }
+
         Subject subject = SecurityUtils.getSubject();
         Object object = subject.getPrincipal();
         if (object == null) {
             return null;
         }
+
         ShiroUser user = (ShiroUser) object;
 
         User u = new User();
-        u.setId(user.id);
-        u.setUsername(user.username);
+        u.setId(user.getId());
+        u.setUsername(user.getUsername());
+
         return u;
     }
 
