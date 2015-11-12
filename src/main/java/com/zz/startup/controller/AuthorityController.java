@@ -33,6 +33,8 @@ public class AuthorityController {
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
         Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
         Page<Authority> authorities = authorityService.findPage(filters, pageable);
+        authorityService.transform(authorities);
+
         model.addAttribute("authorities", authorities);
         return "authority/list";
     }

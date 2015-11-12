@@ -54,7 +54,7 @@
             <td>${status.index + 1}</td>
             <td>${authority.name}</td>
             <td>${authority.permission}</td>
-            <td>${authority.parentId}</td>
+            <td>${authority.parentName}</td>
             <td class="am-hide-sm-only"><fmt:formatDate value="${authority.creationTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td class="am-hide-sm-only"><fmt:formatDate value="${authority.modifiedTime}"
