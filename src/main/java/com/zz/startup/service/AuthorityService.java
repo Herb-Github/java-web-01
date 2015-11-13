@@ -44,4 +44,8 @@ public class AuthorityService extends BaseService<Authority, String> {
             authorityDao.save(parent);
         }
     }
+
+    public void updateAuthority(String id, Authority authority) {
+
+    }
 }

@@ -5,8 +5,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+@XmlRootElement
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 6478593744952785316L;
