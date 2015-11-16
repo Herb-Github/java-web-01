@@ -9,8 +9,12 @@
   </div>
 </div>
 
+<c:if test="${not empty msg}">
+  <div class="am-g"><p class="am-text-success am-text-center">${msg}</p></div>
+</c:if>
+
 <div class="am-g">
-  <form action="${ctx}/service/">
+  <form action="${ctx}/service/" class="search">
     <div class="am-u-sm-12 am-u-md-3">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">

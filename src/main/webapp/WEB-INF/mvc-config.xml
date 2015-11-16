@@ -68,13 +68,6 @@
         <property name="defaultViews">
             <list>
                 <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
-                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
-                    <property name="marshaller">
-                        <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-                            <property name="packagesToScan" value="com.zz.startup.entity" />
-                        </bean>
-                    </property>
-                </bean>
             </list>
         </property>
 
@@ -96,7 +89,6 @@
         <property name="mediaTypes">
             <props>
                 <prop key="json">application/json;charset=utf-8</prop>
-                <prop key="xml">application/xml;charset=utf-8</prop>
             </props>
         </property>
         <property name="favorPathExtension" value="true" />

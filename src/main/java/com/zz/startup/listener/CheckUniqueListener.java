@@ -2,6 +2,7 @@ package com.zz.startup.listener;
 
 import com.mongodb.DBObject;
 import com.zz.startup.annotation.Unique;
+import com.zz.startup.exception.CustomException;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,7 +25,7 @@ public class CheckUniqueListener extends AbstractMongoEventListener<Object> {
         for (Field field : fields) {
             Unique unique = field.getAnnotation(Unique.class);
             if (unique != null && isRepeat(source, field)) {
-                throw new RuntimeException(unique.message());
+                throw new CustomException(unique.message());
             }
         }
     }

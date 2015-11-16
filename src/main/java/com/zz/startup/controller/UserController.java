@@ -90,11 +90,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") String id, RedirectAttributes redirectAttributes) {
+    public String delete(@ValidatorId @PathVariable("id") String id,
+                         RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         userService.delete(id);
 
         redirectAttributes.addFlashAttribute("msg", "删除用户成功");
+        redirectAttributes.addAllAttributes(Servlets.getParametersStartingWith(request, ""));
         return "redirect:/user/";
     }
 

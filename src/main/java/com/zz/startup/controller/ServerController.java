@@ -82,10 +82,12 @@ public class ServerController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") String id, RedirectAttributes redirectAttributes) {
+    public String delete(@ValidatorId @PathVariable("id") String id,
+                         RedirectAttributes redirectAttributes, HttpServletRequest request) {
         serverService.delete(id);
 
         redirectAttributes.addFlashAttribute("msg", "删除服务器成功");
+        redirectAttributes.addAllAttributes(Servlets.getParametersStartingWith(request, ""));
         return "redirect:/server/";
     }
 }

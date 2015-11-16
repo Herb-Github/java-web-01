@@ -3,14 +3,20 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
+
+
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户</strong> /
     <small>列表</small>
   </div>
 </div>
 
+<c:if test="${not empty msg}">
+  <div class="am-g"><p class="am-text-success am-text-center">${msg}</p></div>
+</c:if>
+
 <div class="am-g">
-  <form action="${ctx}/user/">
+  <form action="${ctx}/user/" class="search">
     <div class="am-u-sm-12 am-u-md-3">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
