@@ -33,10 +33,17 @@
         </select>
       </div>
     </div>
+
+    <div class="am-u-sm-12 am-u-md-3">
+      <div class="am-input-group am-input-group-sm">
+        <input type="text" name="criteria_LIKE_aliasName" value="${param.criteria_LIKE_aliasName}" class="am-form-field" />
+      </div>
+    </div>
+
     <div class="am-u-sm-12 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
         <input type="text" name="criteria_LIKE_name" value="${param.criteria_LIKE_name}"
-               class="am-form-field">
+               class="am-form-field" />
             <span class="am-input-group-btn">
               <button class="am-btn am-btn-default" type="submit">搜索</button>
             </span>

@@ -52,6 +52,20 @@
       </div>
 
       <div class="am-form-group">
+        <label for="service-otherConfig" class="am-u-sm-3 am-form-label">其他配置</label>
+        <div class="am-u-sm-9">
+          <textarea class="" rows="5" id="service-otherConfig" name="otherConfig" placeholder="其他配置">${service.otherConfig}</textarea>
+        </div>
+      </div>
+
+      <div class="am-form-group">
+        <label for="serivce-summary" class="am-u-sm-3 am-form-label">摘要</label>
+        <div class="am-u-sm-9">
+          <textarea class="" rows="5" id="serivce-summary" name="summary" placeholder="摘要">${service.summary}</textarea>
+        </div>
+      </div>
+
+      <div class="am-form-group">
         <div class="am-u-sm-9 am-u-sm-push-3">
           <button type="submit" class="am-btn am-btn-primary">保存</button>
         </div>
