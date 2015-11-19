@@ -68,9 +68,9 @@
         <property name="defaultViews">
             <list>
                 <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+                <bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView"/>
             </list>
         </property>
-
         <property name="viewResolvers">
             <list>
                 <ref bean="defalutViewResolver"/>
@@ -91,15 +91,24 @@
                 <prop key="json">application/json;charset=utf-8</prop>
             </props>
         </property>
-        <property name="favorPathExtension" value="true" />
-        <property name="favorParameter" value="true" />
-        <property name="ignoreAcceptHeader" value="false" />
+        <property name="favorPathExtension" value="true"/>
+        <property name="favorParameter" value="true"/>
+        <property name="ignoreAcceptHeader" value="false"/>
 
-        <property name="defaultContentType" value="text/html" />
+        <property name="defaultContentType" value="text/html"/>
     </bean>
 
     <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basenames="WEB-INF/i18n/messages"/>
 
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+
+<!--    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>-->
 </beans>

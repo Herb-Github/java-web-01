@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
+<meta name="menu" content="user" />
+<meta name="subMenu" content="authority" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><a href="${ctx}/authority/"> <strong class="am-text-primary am-text-lg">权限</strong></a> /

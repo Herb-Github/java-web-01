@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<meta name="menu" content="user" />
+<meta name="subMenu" content="user" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><a href="${ctx}/user/"> <strong class="am-text-primary am-text-lg">用户</strong></a> /

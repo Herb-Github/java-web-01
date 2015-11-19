@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
+<meta name="menu" content="service" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><a href="${ctx}/service/"> <strong class="am-text-primary am-text-lg">服务</strong></a> /

@@ -1,10 +1,15 @@
 <%@tag pageEncoding="UTF-8" %>
 <%@ attribute name="page" type="org.springframework.data.domain.Page" required="true" %>
-<%@ attribute name="paginationSize" type="java.lang.Integer" required="true" %>
+<%@ attribute name="paginationSize" type="java.lang.Integer" required="false" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
+
+  if (paginationSize == null || paginationSize < 0) {
+    paginationSize = 5;
+  }
+
   int pageSize = page.getSize();
   int current = page.getNumber() + 0;
   int begin = Math.max(0, current - paginationSize / 2);

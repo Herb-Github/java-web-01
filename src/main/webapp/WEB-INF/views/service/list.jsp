@@ -3,6 +3,8 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
+<meta name="menu" content="service" />
+
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">服务</strong> /
     <small>列表</small>
@@ -96,7 +98,7 @@
         </c:forEach>
         </tbody>
       </table>
-      <tags:page page="${services}" paginationSize="5"/>
+      <tags:page page="${services}" />
     </form>
   </div>
 </div>

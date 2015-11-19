@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<meta name="menu" content="user" />
+<meta name="subMenu" content="role" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><a href="${ctx}/server/"> <strong class="am-text-primary am-text-lg">服务器</strong></a> /

@@ -3,7 +3,8 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
-
+<meta name="menu" content="user" />
+<meta name="subMenu" content="user" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户</strong> /

@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
+<meta name="menu" content="user" />
+<meta name="subMenu" content="role" />
 
 <div class="am-cf am-padding">
   <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">角色</strong> /
