@@ -1,10 +1,10 @@
 package com.zz.startup.security;
 
-import com.zz.startup.entity.Authority;
-import com.zz.startup.entity.Role;
-import com.zz.startup.entity.User;
-import com.zz.startup.exception.CustomException;
-import com.zz.startup.util.Constants;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -21,9 +21,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springside.modules.utils.Encodes;
 
-import javax.annotation.PostConstruct;
-import java.io.Serializable;
-import java.util.List;
+import com.zz.startup.entity.Authority;
+import com.zz.startup.entity.Role;
+import com.zz.startup.entity.User;
+import com.zz.startup.exception.CustomException;
+import com.zz.startup.util.Constants;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
@@ -71,12 +73,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         List<Role> roles = user.getRoles();
-        for (Role role : roles) {
-            List<Authority> auths = role.getAuthorities();
-            for (Authority auth : auths) {
-                info.addStringPermission(auth.getPermission());
+        if (roles != null) {
+            for (Role role : roles) {
+                List<Authority> auths = role.getAuthorities();
+                if (auths != null) {
+                    for (Authority auth : auths) {
+                        info.addStringPermission(auth.getPermission());
+                    }
+                }
+                info.addRole(role.getRoleName());
             }
-            info.addRole(role.getRoleName());
         }
 
         List<String> permissions = user.getPermissions();

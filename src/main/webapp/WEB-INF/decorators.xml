@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/layouts/">
     <excludes>
-        <pattern>/static/*</pattern>
         <pattern>/assets/*</pattern>
         <pattern>/login</pattern>
     </excludes>
