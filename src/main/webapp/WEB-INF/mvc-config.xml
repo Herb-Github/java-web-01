@@ -57,8 +57,6 @@
         <bean class="com.zz.startup.controller.interceptor.StopWatchInterceptor"/>
     </mvc:interceptors>
 
-    <mvc:view-controller path="/" view-name="redirect:/main"/>
-
     <mvc:default-servlet-handler/>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
