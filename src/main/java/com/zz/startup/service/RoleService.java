@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleService extends BaseService<Role, String> {
+public class RoleService extends BaseService<Role, Long> {
 
     @Autowired
     private RoleDao roleDao;

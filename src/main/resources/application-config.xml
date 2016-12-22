@@ -16,7 +16,6 @@
         </property>
     </bean>
 
-    <import resource="application-config-mongo.xml" />
     <import resource="application-config-redis.xml"/>
     <import resource="application-config-shiro.xml" />
     <import resource="application-config-quartz.xml" />

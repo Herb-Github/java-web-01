@@ -7,6 +7,8 @@ import com.zz.startup.entity.User;
 import com.zz.startup.service.RoleService;
 import com.zz.startup.service.UserService;
 import com.zz.startup.util.Constants;
+import com.zz.startup.util.SearchFilter;
+import com.zz.startup.util.Servlets;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springside.modules.persistence.SearchFilter;
-import org.springside.modules.web.Servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String show(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
         User user = userService.get(id);
         model.addAttribute("user", user);
         return "user/show";
@@ -71,14 +71,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public String edit(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
         User user = userService.get(id);
         model.addAttribute("user", user);
         return "user/edit";
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable("id") String id, User user, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable("id") Long id, User user, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "user/edit";
         }
@@ -90,7 +90,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") String id,
+    public String delete(@ValidatorId @PathVariable("id") Long id,
                          RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         userService.delete(id);
@@ -101,7 +101,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "edit/{id}/role", method = RequestMethod.GET)
-    public String editRole(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String editRole(@ValidatorId @PathVariable("id") Long id, Model model) {
         User user = userService.get(id);
         List<Role> roles = roleService.findAll();
 
@@ -109,7 +109,6 @@ public class UserController {
             for (Role userRole : user.getRoles()) {
                 for (Role role : roles) {
                     if (userRole.equals(role)) {
-                        role.setChecked(true);
                         break;
                     }
                 }
@@ -123,13 +122,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "update/{id}/role", method = RequestMethod.POST)
-    public String updateRole(@ValidatorId @PathVariable("id") String id, String[] roleIds, RedirectAttributes redirectAttributes) {
+    public String updateRole(@ValidatorId @PathVariable("id") Long id, String[] roleIds, RedirectAttributes redirectAttributes) {
         User user = userService.get(id);
         if (ArrayUtils.isEmpty(roleIds)) {
-            user.setRoles(new ArrayList<Role>());
-        } else {
-            List<Role> roles = roleService.get(Lists.newArrayList(roleIds));
-            user.setRoles(roles);
+            user.setRoles(new ArrayList<>());
         }
 
         userService.save(user);
@@ -139,7 +135,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "edit/{id}/permission", method = RequestMethod.GET)
-    public String editPermission(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String editPermission(@ValidatorId @PathVariable("id") Long id, Model model) {
         User user = userService.get(id);
         model.addAttribute("user", user);
 
@@ -147,10 +143,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "update/{id}/permission", method = RequestMethod.POST)
-    public String updatePermission(@ValidatorId @PathVariable("id") String id, String permission, RedirectAttributes redirectAttributes) {
+    public String updatePermission(@ValidatorId @PathVariable("id") Long id, String permission, RedirectAttributes redirectAttributes) {
         User user = userService.get(id);
-        String[] permissions = StringUtils.split(permission, ",");
-        user.setPermissions(Lists.newArrayList(permissions));
         userService.save(user);
 
         redirectAttributes.addFlashAttribute("msg", "更新用户权限成功");

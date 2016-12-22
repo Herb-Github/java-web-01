@@ -2,39 +2,35 @@ package com.zz.startup.entity;
 
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
+@Table(name = "t_auth_role")
+@Entity
 public class Role extends BaseEntity {
 
     @NotBlank
     @Unique
-    private String roleName;
-    private String aliasName;
-    @DBRef
+    private String name;
+    private String summary;
     private List<Authority> authorities;
 
-    private String status;      // [enable|disable]
-
-    @Transient
-    private boolean checked;
-
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAliasName() {
-        return aliasName;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public List<Authority> getAuthorities() {
@@ -43,22 +39,6 @@ public class Role extends BaseEntity {
 
     public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override
@@ -73,7 +53,7 @@ public class Role extends BaseEntity {
             return false;
         }
         Role role = (Role) o;
-        return role != null && role.getId().equals(getId());
+        return role.getId().equals(getId());
     }
 
     public int hashCode() {

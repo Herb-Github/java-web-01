@@ -3,6 +3,8 @@ package com.zz.startup.service;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import com.zz.startup.repository.BaseDao;
+import com.zz.startup.util.DynamicSpecifications;
+import com.zz.startup.util.SearchFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -10,20 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springside.modules.persistence.SearchFilter;
-import org.springside.modules.utils.Reflections;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
 import java.util.*;
 
 public abstract class BaseService<M, ID extends Serializable> {
-
-    @Autowired
-    protected MongoTemplate mongoTemplate;
 
     @Autowired
     protected BaseDao<M, ID> baseDao;
@@ -40,12 +34,11 @@ public abstract class BaseService<M, ID extends Serializable> {
     }
 
     public Page<M> findPage(Map<String, SearchFilter> filters, Pageable pageable) {
-        Query query = buildQuery(filters);
-        Class<M> clazz = Reflections.getClassGenricType(getClass());
-        long count = mongoTemplate.count(query, clazz);
-        query.with(pageable);
-        query.with(new Sort(Sort.Direction.DESC, "modifiedTime"));
-        return new PageImpl(mongoTemplate.find(query, clazz), pageable, count);
+        Specification<M> query = buildQuery(filters);
+
+        long count = baseDao.count(query);
+        List<M> list = baseDao.findAll(query);
+        return new PageImpl(list, pageable, count);
     }
 
     public List<M> findBy(String key, SearchFilter.Operator operator, Object value) {
@@ -56,13 +49,12 @@ public abstract class BaseService<M, ID extends Serializable> {
     }
 
     public M findOne(String key, SearchFilter.Operator operator, Object value) {
-        Map<String, SearchFilter> filters = Maps.newHashMap();
-        SearchFilter sf = new SearchFilter(key, operator, value);
-        filters.put(key, sf);
-        Class<M> clazz = Reflections.getClassGenricType(getClass());
-        Query query = buildQuery(filters);
-        query.limit(1);
-        return mongoTemplate.findOne(query, clazz);
+        List<M> list = findBy(key, operator, value);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
     }
 
     public Page<M> findAll(Pageable pageable) {
@@ -108,45 +100,13 @@ public abstract class BaseService<M, ID extends Serializable> {
         baseDao.delete(entitys);
     }
 
-    protected Query buildQuery(Map<String, SearchFilter> filters) {
-        Query query = new Query();
-        for (Map.Entry<String, SearchFilter> filter : filters.entrySet()) {
-            SearchFilter sf = filter.getValue();
-            String fieldName = sf.fieldName;
-            Object value = sf.value;
-
-            Criteria criteria = Criteria.where(fieldName);
-            switch (sf.operator) {
-                case EQ:
-                    criteria.is(value);
-                    break;
-                case GT:
-                    criteria.gt(value);
-                    break;
-                case LT:
-                    criteria.lt(value);
-                    break;
-                case GTE:
-                    criteria.gte(value);
-                    break;
-                case LTE:
-                    criteria.lte(value);
-                    break;
-                case LIKE:
-                    criteria.regex((String) value, "i");
-                    break;
-                default:
-                    break;
-            }
-            query.addCriteria(criteria);
-        }
-        return query;
+    protected Specification<M> buildQuery(Map<String, SearchFilter> filters) {
+        return DynamicSpecifications.bySearchFilter(filters.values());
     }
 
     public List<M> findBySearchFilter(Map<String, SearchFilter> filters) {
-        Class<M> clazz = Reflections.getClassGenricType(getClass());
-        Query query = buildQuery(filters);
-        return mongoTemplate.find(query, clazz);
+        Specification<M> query = buildQuery(filters);
+        return baseDao.findAll(query);
     }
 
     private void copyNonNullProperties(Object src, Object target) {

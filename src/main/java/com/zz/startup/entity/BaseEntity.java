@@ -1,8 +1,6 @@
 package com.zz.startup.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,46 +12,35 @@ public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 6200086503063477407L;
     @Id
-    private String id;
+    private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @CreatedDate
-    private Date creationTime;
+    private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @LastModifiedDate
-    private Date modifiedTime;
-    @JsonIgnore
-    @CreatedBy
-    private User creator;
+    private Date updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Date getCreationTime() {
-        return creationTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getModifiedTime() {
-        return modifiedTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setModifiedTime(Date modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

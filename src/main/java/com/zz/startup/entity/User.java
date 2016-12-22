@@ -3,12 +3,13 @@ package com.zz.startup.entity;
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
-@XmlRootElement
+@Table(name = "t_auth_user")
+@Entity
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 6478593744952785316L;
@@ -18,12 +19,8 @@ public class User extends BaseEntity {
     private String username;
     private String password;
     private String salt;
-    private String email;
-    @DBRef
-    private List<Role> roles;
-    private List<String> permissions;
 
-    private String status;  // [enable|disable]
+    private List<Role> roles;
 
     @Transient
     private String plainPassword;
@@ -60,35 +57,11 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPlainPassword() {
         return plainPassword;
     }
 
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

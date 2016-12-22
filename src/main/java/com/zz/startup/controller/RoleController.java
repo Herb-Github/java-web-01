@@ -4,6 +4,8 @@ import com.zz.startup.annotation.ValidatorId;
 import com.zz.startup.entity.Role;
 import com.zz.startup.service.RoleService;
 import com.zz.startup.util.Constants;
+import com.zz.startup.util.SearchFilter;
+import com.zz.startup.util.Servlets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springside.modules.persistence.SearchFilter;
-import org.springside.modules.web.Servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,7 +38,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String show(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
         Role role = roleService.get(id);
         model.addAttribute("role", role);
         return "role/show";
@@ -55,7 +55,6 @@ public class RoleController {
             return "role/new";
         }
 
-        role.setStatus(Constants.ROLE_STATUS_ENABLE);
         roleService.save(role);
 
         redirectAttributes.addFlashAttribute("msg", "新增角色成功");
@@ -63,7 +62,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public String edit(@ValidatorId @PathVariable("id") String id, Model model) {
+    public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
         Role role = roleService.get(id);
         model.addAttribute("role", role);
 
@@ -71,7 +70,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable("id") String id, Role role, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable("id") Long id, Role role, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "role/edit";
         }

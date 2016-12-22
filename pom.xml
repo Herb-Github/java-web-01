@@ -8,20 +8,19 @@
 
     <properties>
 
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
-        <servlet.version>2.5</servlet.version>
+        <servlet.version>3.0.1</servlet.version>
         <sitemesh.version>2.4.2</sitemesh.version>
 
-        <spring-framework.version>4.1.3.RELEASE</spring-framework.version>
+        <spring-framework.version>4.2.5.RELEASE</spring-framework.version>
 
-        <spring-data-jpa.version>1.7.2.RELEASE</spring-data-jpa.version>
-        <spring-data-redis.version>1.4.1.RELEASE</spring-data-redis.version>
-        <spring-data-mongo.version>1.5.2.RELEASE</spring-data-mongo.version>
+        <spring-data-jpa.version>1.10.0.RELEASE</spring-data-jpa.version>
+        <spring-data-redis.version>1.7.0.RELEASE</spring-data-redis.version>
         <jedis.version>2.4.2</jedis.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <druid.version>1.0.15</druid.version>
@@ -34,13 +33,11 @@
         <slf4j.version>1.7.5</slf4j.version>
 
         <shiro.version>1.2.3</shiro.version>
-        <kaptcha.version>2.3.2</kaptcha.version>
 
         <aspectj.version>1.8.1</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
 
         <guava.version>17.0</guava.version>
-        <springside.version>4.1.0.GA</springside.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
@@ -104,18 +101,24 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>${spring-data-redis.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>${spring-data-mongo.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -155,7 +158,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -177,11 +180,6 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.google.code</groupId>
-            <artifactId>kaptcha</artifactId>
-            <version>${kaptcha.version}</version>
-        </dependency>-->
 
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -223,11 +221,6 @@
             <version>${guava.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <version>${springside.version}</version>
-        </dependency>
-        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
@@ -253,22 +246,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
         </dependency>
 
         <dependency>

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class JedisShiroSessionRepository {
 
@@ -32,9 +33,7 @@ public class JedisShiroSessionRepository {
     public Collection<Session> getAllSessions() {
         Set<Session> sessions = Sets.newHashSet();
         List<Object> list = redisTemplate.opsForHash().values(SHIRO_WEB_REDIS_PREFIX);
-        for (Object obj : list) {
-            sessions.add((Session) obj);
-        }
+        sessions.addAll(list.stream().map(obj -> (Session) obj).collect(Collectors.toList()));
         return sessions;
     }
 }

@@ -1,10 +1,13 @@
 package com.zz.startup.security;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.zz.startup.entity.Authority;
+import com.zz.startup.entity.Role;
+import com.zz.startup.entity.User;
+import com.zz.startup.exception.BaseRuntimeException;
+import com.zz.startup.service.UserService;
+import com.zz.startup.util.Constants;
+import com.zz.startup.util.Encodes;
+import com.zz.startup.util.SearchFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -16,24 +19,18 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springside.modules.utils.Encodes;
 
-import com.zz.startup.entity.Authority;
-import com.zz.startup.entity.Role;
-import com.zz.startup.entity.User;
-import com.zz.startup.exception.CustomException;
-import com.zz.startup.util.Constants;
+import javax.annotation.PostConstruct;
+import java.io.Serializable;
+import java.util.List;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
     @Autowired
-    protected MongoTemplate mongoTemplate;
+    protected UserService userService;
 
     private User findByUsername(String username) {
-        return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
+        return userService.findOne(username, SearchFilter.Operator.EQ, username);
     }
 
     @Override
@@ -51,7 +48,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             Session s = SecurityUtils.getSubject().getSession();
             String exitCode = (String) s.getAttribute("code");
             if (null == captcha || !StringUtils.equalsIgnoreCase(captcha, exitCode)) {
-                throw new CustomException("验证码错误");
+                throw new BaseRuntimeException("验证码错误");
             }
         }
 
@@ -81,13 +78,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
                         info.addStringPermission(auth.getPermission());
                     }
                 }
-                info.addRole(role.getRoleName());
+                info.addRole(role.getName());
             }
-        }
-
-        List<String> permissions = user.getPermissions();
-        if (permissions != null) {
-            info.addStringPermissions(permissions);
         }
 
         return info;
@@ -102,19 +94,19 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
     public static class ShiroUser implements Serializable {
         private static final long serialVersionUID = -1373760761780840081L;
-        private String id;
+        private Long id;
         private String username;
 
-        public ShiroUser(String id, String username) {
+        public ShiroUser(Long id, String username) {
             this.id = id;
             this.username = username;
         }
 
-        public String getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(Long id) {
             this.id = id;
         }
 

@@ -2,10 +2,12 @@ package com.zz.startup.entity;
 
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Table(name = "t_auth_authority")
+@Entity
 public class Authority extends BaseEntity {
 
     @NotEmpty
@@ -13,12 +15,7 @@ public class Authority extends BaseEntity {
     private String name;
     @NotEmpty
     private String permission;
-    private String parentId;
-    private List<String> children;
     private String summary;
-
-    @Transient
-    private String parentName;  // 父权限的名称
 
     public String getName() {
         return name;
@@ -42,30 +39,6 @@ public class Authority extends BaseEntity {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    public List<String> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<String> children) {
-        this.children = children;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
     }
 
     @Override

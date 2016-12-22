@@ -3,20 +3,18 @@ package com.zz.startup.service;
 import com.zz.startup.entity.User;
 import com.zz.startup.repository.UserDao;
 import com.zz.startup.util.Constants;
+import com.zz.startup.util.Digests;
+import com.zz.startup.util.Encodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
 
 @Service
-public class UserService extends BaseService<User, String> {
+public class UserService extends BaseService<User, Long> {
 
     @Autowired
     private UserDao userDao;
 
     public void createUser(User user) {
-        user.setStatus(Constants.USER_STATUS_ENABLE);
-
         entryptPassword(user);
         userDao.save(user);
     }
