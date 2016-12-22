@@ -2,10 +2,10 @@ package com.zz.startup.entity;
 
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.List;
 
 @Table(name = "t_auth_user")
@@ -20,6 +20,7 @@ public class User extends BaseEntity {
     private String password;
     private String salt;
 
+    @Transient
     private List<Role> roles;
 
     @Transient

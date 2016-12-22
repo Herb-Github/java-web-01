@@ -20,8 +20,6 @@ public class AuthorityServiceTest {
     @Test
     public void test_createAuthority() {
         Authority authority = new Authority();
-        authority.setCreationTime(new Date());
-        authority.setParentId("#");
         authority.setName("用户");
         authority.setPermission("user:*");
         authorityService.save(authority);

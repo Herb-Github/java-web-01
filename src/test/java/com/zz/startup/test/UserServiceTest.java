@@ -1,6 +1,5 @@
 package com.zz.startup.test;
 
-import com.google.common.collect.Lists;
 import com.zz.startup.entity.User;
 import com.zz.startup.service.UserService;
 import org.junit.After;
@@ -21,7 +20,7 @@ public class UserServiceTest {
     UserService userService;
 
     @Test
-    public void test_deleteUser(){
+    public void test_deleteUser() {
         List<User> users = userService.findAll();
         userService.delete(users);
     }
@@ -29,12 +28,11 @@ public class UserServiceTest {
     @After
     public void test_createUser() {
         User user = new User();
-        user.setId("1");
+        user.setId(1L);
         user.setUsername("admin");
         user.setPlainPassword("111111");
-        user.setEmail("admin@admin.com");
-        user.setCreationTime(new Date());
-        user.setPermissions(Lists.newArrayList("*:*"));
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
 
         userService.createUser(user);
     }

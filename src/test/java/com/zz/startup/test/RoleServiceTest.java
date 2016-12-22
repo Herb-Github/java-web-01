@@ -18,13 +18,9 @@ public class RoleServiceTest {
     @Test
     public void test_createRole(){
         Role role = new Role();
-        role.setRoleName("admin");
-        role.setAliasName("管理员");
         roleService.save(role);
 
         role = new Role();
-        role.setRoleName("user");
-        role.setAliasName("普通用户");
         roleService.save(role);
     }
 }

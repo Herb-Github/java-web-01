@@ -2,8 +2,10 @@ package com.zz.startup.service;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
+import com.zz.startup.entity.BaseEntity;
 import com.zz.startup.repository.BaseDao;
 import com.zz.startup.util.DynamicSpecifications;
+import com.zz.startup.util.Reflections;
 import com.zz.startup.util.SearchFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -17,10 +19,16 @@ import org.springframework.data.jpa.domain.Specification;
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class BaseService<M, ID extends Serializable> {
+public abstract class BaseService<M extends BaseEntity, ID extends Serializable> {
 
     @Autowired
     protected BaseDao<M, ID> baseDao;
+
+    protected final Class<M> entityClass;
+
+    protected BaseService() {
+        entityClass = Reflections.getClassGenricType(getClass());
+    }
 
     public M get(ID id) {
         return baseDao.findOne(id);

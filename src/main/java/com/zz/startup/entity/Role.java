@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.List;
 
 @Table(name = "t_auth_role")
@@ -15,6 +16,8 @@ public class Role extends BaseEntity {
     @Unique
     private String name;
     private String summary;
+
+    @Transient
     private List<Authority> authorities;
 
     public String getName() {
