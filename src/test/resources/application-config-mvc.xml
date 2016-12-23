@@ -99,4 +99,5 @@
     </bean>
 
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

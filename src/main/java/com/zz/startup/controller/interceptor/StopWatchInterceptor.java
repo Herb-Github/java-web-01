@@ -27,6 +27,6 @@ public class StopWatchInterceptor extends HandlerInterceptorAdapter {
         long endTime = System.currentTimeMillis();
         long beginTime = startTimeThreadLocal.get();
         long consumeTime = endTime - beginTime;
-        logger.debug("{}: consume {}ms", request.getRequestURI(), consumeTime);
+        logger.debug("method:{}, path:{}: consume {}ms", request.getMethod(), request.getRequestURI(), consumeTime);
     }
 }

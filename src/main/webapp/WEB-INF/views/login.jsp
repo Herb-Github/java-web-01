@@ -35,7 +35,9 @@
 <div class="header">
   <div class="am-g">
     <h1>Web ide</h1>
-
+    <c:if test="${not empty error}">
+        <p>${error}</p>
+    </c:if>
     <p>Integrated Development Environment<br/>代码编辑，代码生成，界面设计，调试，编译</p>
   </div>
   <hr/>

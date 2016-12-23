@@ -30,7 +30,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
     protected UserService userService;
 
     private User findByUsername(String username) {
-        return userService.findOne(username, SearchFilter.Operator.EQ, username);
+        return userService.findOne("username", SearchFilter.Operator.EQ, username);
     }
 
     @Override

@@ -60,8 +60,6 @@
             <value>
                 /login = authc
                 /logout = logout
-                /getCaptcha = anon
-                /validateCaptcha = anon
                 /favicon.ico = anon,noSessionCreation
                 /assets/** = anon,noSessionCreation
                 /** = user

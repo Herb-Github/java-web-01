@@ -47,8 +47,6 @@
           <th class="table-check"><input type="checkbox"/></th>
           <th class="table-id">id</th>
           <th class="table-title">用户名</th>
-          <th class="table-type">邮箱</th>
-          <th class="table-type">状态</th>
           <th class="table-author am-hide-sm-only">创建日期</th>
           <th class="table-date am-hide-sm-only">修改日期</th>
           <th class="table-set">操作</th>
@@ -61,8 +59,6 @@
               <td><input type="checkbox"/></td>
               <td>${status.index + 1}</td>
               <td>${user.username}</td>
-              <td>${user.email}</td>
-              <td>${user.status}</td>
               <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
                                                           pattern="yyyy-MM-dd HH:mm:ss"/></td>
               <td class="am-hide-sm-only"><fmt:formatDate value="${user.modifiedTime}"
