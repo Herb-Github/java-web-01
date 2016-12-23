@@ -1,18 +1,12 @@
-package com.zz.startup.test;
+package com.zz.startup.test.service;
 
 import com.zz.startup.entity.Authority;
 import com.zz.startup.service.AuthorityService;
+import com.zz.startup.test.BaseServiceTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:application-config.xml")
-public class AuthorityServiceTest {
+public class AuthorityServiceTest extends BaseServiceTest {
 
     @Autowired
     AuthorityService authorityService;
