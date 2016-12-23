@@ -8,6 +8,7 @@
 
     <logger name="com.zz" level="debug"/>
     <logger name="org.springframework.data" level="debug"/>
+    <logger name="org.hibernate" level="debug"/>
 
     <root level="info">
         <appender-ref ref="STDOUT"/>

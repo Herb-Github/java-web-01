@@ -6,6 +6,9 @@ import com.zz.startup.test.BaseServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Set;
+
 public class AuthorityServiceTest extends BaseServiceTest {
 
     @Autowired
@@ -14,8 +17,17 @@ public class AuthorityServiceTest extends BaseServiceTest {
     @Test
     public void test_createAuthority() {
         Authority authority = new Authority();
-        authority.setName("用户");
-        authority.setPermission("user:*");
+        authority.setName("所有权限");
+        authority.setPermission("*:*");
         authorityService.save(authority);
+    }
+
+    @Test
+    public void test_query_authorities() {
+        Set<Authority> userAuthorities = authorityService.queryUserAuthorities(1L);
+        List<Authority> roleAuthorities = authorityService.queryRoleAuthorities(2L);
+
+        System.out.println(userAuthorities.size());
+        System.out.println(roleAuthorities.size());
     }
 }

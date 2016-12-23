@@ -3,11 +3,24 @@ package com.zz.startup.entity;
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "t_auth_authority")
 @Entity
+@SqlResultSetMapping(
+        name = "AuthMapping",
+        classes = @ConstructorResult(targetClass = Role.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "permission"),
+                        @ColumnResult(name = "summary"),
+                        @ColumnResult(name = "create_time", type = Date.class),
+                        @ColumnResult(name = "update_time", type = Date.class)
+                }
+        )
+)
 public class Authority extends BaseEntity {
 
     @NotEmpty

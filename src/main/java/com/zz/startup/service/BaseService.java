@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.*;
 
@@ -25,6 +27,9 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     protected BaseDao<M, ID> baseDao;
 
     protected final Class<M> entityClass;
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     protected BaseService() {
         entityClass = Reflections.getClassGenricType(getClass());
@@ -110,6 +115,11 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
 
     protected Specification<M> buildQuery(Map<String, SearchFilter> filters) {
         return DynamicSpecifications.bySearchFilter(filters.values());
+    }
+
+    public List<M> nativeQuery(String sql, Object ...params) {
+        Query query = entityManagerFactory.createEntityManager().createNativeQuery(sql);
+        return query.getResultList();
     }
 
     public List<M> findBySearchFilter(Map<String, SearchFilter> filters) {

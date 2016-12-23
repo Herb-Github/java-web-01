@@ -3,13 +3,24 @@ package com.zz.startup.entity;
 import com.zz.startup.annotation.Unique;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "t_auth_role")
 @Entity
+@SqlResultSetMapping(
+        name = "RoleMapping",
+        classes = @ConstructorResult(targetClass = Role.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "summary"),
+                        @ColumnResult(name = "create_time", type = Date.class),
+                        @ColumnResult(name = "update_time", type = Date.class)
+                }
+        )
+)
 public class Role extends BaseEntity {
 
     @NotBlank
