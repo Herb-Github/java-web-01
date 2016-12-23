@@ -1,9 +1,9 @@
 package com.zz.startup.security;
 
 import com.zz.startup.entity.Authority;
-import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
 import com.zz.startup.exception.BaseRuntimeException;
+import com.zz.startup.service.AuthorityService;
 import com.zz.startup.service.UserService;
 import com.zz.startup.util.Constants;
 import com.zz.startup.util.Encodes;
@@ -22,12 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
     @Autowired
-    protected UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private AuthorityService authorityService;
 
     private User findByUsername(String username) {
         return userService.findOne("username", SearchFilter.Operator.EQ, username);
@@ -69,19 +72,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
         User user = findByUsername(shiroUser.getUsername());
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        List<Role> roles = user.getRoles();
-        if (roles != null) {
-            for (Role role : roles) {
-                List<Authority> auths = role.getAuthorities();
-                if (auths != null) {
-                    for (Authority auth : auths) {
-                        info.addStringPermission(auth.getPermission());
-                    }
-                }
-                info.addRole(role.getName());
-            }
-        }
-
+        Set<Authority> authorities = authorityService.queryUserAuthorities(user.getId());
+        authorities.forEach(authority -> info.addStringPermission(authority.getPermission()));
         return info;
     }
 

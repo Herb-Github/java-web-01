@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @SqlResultSetMapping(
         name = "AuthMapping",
-        classes = @ConstructorResult(targetClass = Role.class,
+        classes = @ConstructorResult(targetClass = Authority.class,
                 columns = {
                         @ColumnResult(name = "id", type = Long.class),
                         @ColumnResult(name = "name"),

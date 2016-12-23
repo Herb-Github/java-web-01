@@ -59,9 +59,9 @@
               <td><input type="checkbox"/></td>
               <td>${status.index + 1}</td>
               <td>${user.username}</td>
-              <td class="am-hide-sm-only"><fmt:formatDate value="${user.creationTime}"
+              <td class="am-hide-sm-only"><fmt:formatDate value="${user.createTime}"
                                                           pattern="yyyy-MM-dd HH:mm:ss"/></td>
-              <td class="am-hide-sm-only"><fmt:formatDate value="${user.modifiedTime}"
+              <td class="am-hide-sm-only"><fmt:formatDate value="${user.updateTime}"
                                                           pattern="yyyy-MM-dd HH:mm:ss"/></td>
               <td>
                 <div class="am-dropdown" data-am-dropdown>

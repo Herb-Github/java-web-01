@@ -27,7 +27,7 @@ public class AuthorityServiceTest extends BaseServiceTest {
         Set<Authority> userAuthorities = authorityService.queryUserAuthorities(1L);
         List<Authority> roleAuthorities = authorityService.queryRoleAuthorities(2L);
 
-        System.out.println(userAuthorities.size());
-        System.out.println(roleAuthorities.size());
+        System.out.println(userAuthorities);
+        System.out.println(roleAuthorities);
     }
 }

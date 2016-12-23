@@ -32,17 +32,6 @@
           </ul>
         </li>
       </tags:hasAnyPermissions>
-
-      <shiro:hasPermission name="server:list">
-        <li class="${menu=='server'?'am-active':''}"><a href="${ctx}/server/"><span class="am-icon-server"></span>
-          机器</a>
-        </li>
-      </shiro:hasPermission>
-      <shiro:hasPermission name="service:list">
-        <li class="${menu=='service'?'am-active':''}"><a href="${ctx}/service/"><span class="am-icon-table"></span>
-          服务</a>
-        </li>
-      </shiro:hasPermission>
       <li><a href="${ctx}/logout"><span class="am-icon-sign-out"></span> 退出</a></li>
     </ul>
 

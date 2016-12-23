@@ -27,4 +27,11 @@ public class UserService extends BaseService<User, Long> {
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
 
+    public int insertUserRole(Long userId, Long roleId) {
+        return userDao.insertUserRole(userId, roleId);
+    }
+
+    public int deleteRoles(Long userId) {
+        return userDao.deleteRoles(userId);
+    }
 }

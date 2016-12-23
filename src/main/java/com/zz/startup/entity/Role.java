@@ -29,6 +29,8 @@ public class Role extends BaseEntity {
     private String summary;
 
     @Transient
+    private boolean checked;
+    @Transient
     private List<Authority> authorities;
 
     public String getName() {
@@ -45,6 +47,14 @@ public class Role extends BaseEntity {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public List<Authority> getAuthorities() {

@@ -51,7 +51,7 @@
     <jpa:repositories base-package="com.zz.startup.repository"
                       transaction-manager-ref="transactionManager"
                       entity-manager-factory-ref="entityManagerFactory"/>
-    <!--<jpa:auditing />-->
+    <jpa:auditing />
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

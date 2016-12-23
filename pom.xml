@@ -34,7 +34,7 @@
 
         <shiro.version>1.2.3</shiro.version>
 
-        <aspectj.version>1.8.1</aspectj.version>
+        <aspectj.version>1.8.8</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
 
         <guava.version>17.0</guava.version>
@@ -86,6 +86,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
         <dependency>

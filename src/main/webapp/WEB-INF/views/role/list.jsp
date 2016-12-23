@@ -46,8 +46,7 @@
           <th class="table-check"><input type="checkbox"/></th>
           <th class="table-id">id</th>
           <th class="table-title">角色名称</th>
-          <th class="table-title">角色别名</th>
-          <th class="table-title">角色状态</th>
+          <th class="table-title">角色介绍</th>
           <th class="table-author am-hide-sm-only">创建日期</th>
           <th class="table-date am-hide-sm-only">修改日期</th>
           <th class="table-set">操作</th>
@@ -58,12 +57,11 @@
           <tr>
             <td><input type="checkbox"/></td>
             <td>${status.index + 1}</td>
-            <td>${role.roleName}</td>
-            <td>${role.aliasName}</td>
-            <td>${role.status}</td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${role.creationTime}"
+            <td>${role.name}</td>
+            <td>${role.summary}</td>
+            <td class="am-hide-sm-only"><fmt:formatDate value="${role.createTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${role.modifiedTime}"
+            <td class="am-hide-sm-only"><fmt:formatDate value="${role.updateTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>
               <div class="am-btn-toolbar">

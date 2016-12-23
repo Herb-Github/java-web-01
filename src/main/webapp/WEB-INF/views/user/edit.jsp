@@ -20,15 +20,6 @@
           <input type="text" id="user-name" name="username" value="${user.username}" required />
         </div>
       </div>
-
-      <div class="am-form-group">
-        <label for="user-email" class="am-u-sm-3 am-form-label">email</label>
-
-        <div class="am-u-sm-9">
-          <input type="email" id="user-email" name="email" value="${user.email}" required>
-        </div>
-      </div>
-
       <div class="am-form-group">
         <div class="am-u-sm-9 am-u-sm-push-3">
           <button type="submit" class="am-btn am-btn-primary">保存</button>
