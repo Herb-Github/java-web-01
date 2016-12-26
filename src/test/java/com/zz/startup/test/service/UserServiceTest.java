@@ -26,7 +26,6 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void test_createUser() {
         User user = new User();
-        user.setId(1L);
         user.setUsername("admin2");
         user.setPlainPassword("111111");
 
