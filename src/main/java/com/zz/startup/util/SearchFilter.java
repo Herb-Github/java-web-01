@@ -2,7 +2,9 @@ package com.zz.startup.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -22,7 +24,7 @@ public class SearchFilter {
         this.operator = operator;
     }
 
-    public static Map<String, SearchFilter> parse(Map<String, Object> searchParams) {
+    public static List<SearchFilter> parse(Map<String, Object> searchParams) {
         Map<String, SearchFilter> filters = new HashMap<>();
 
         for (Entry<String, Object> entry : searchParams.entrySet()) {
@@ -46,6 +48,6 @@ public class SearchFilter {
             filters.put(key, filter);
         }
 
-        return filters;
+        return new ArrayList<>(filters.values());
     }
 }

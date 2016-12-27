@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Map;
+import java.util.List;
 
 @Controller
 @RequestMapping("role")
@@ -30,7 +30,7 @@ public class RoleController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
-        Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
+        List<SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
         Page<Role> roles = roleService.findPage(filters, pageable);
         model.addAttribute("roles", roles);
 
@@ -39,7 +39,7 @@ public class RoleController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
-        Role role = roleService.get(id);
+        Role role = roleService.find(id);
         model.addAttribute("role", role);
         return "role/show";
     }
@@ -63,7 +63,7 @@ public class RoleController {
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
-        Role role = roleService.get(id);
+        Role role = roleService.find(id);
         model.addAttribute("role", role);
 
         return "role/edit";

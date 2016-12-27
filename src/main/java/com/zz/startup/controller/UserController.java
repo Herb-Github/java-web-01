@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @Validated
 @Controller
@@ -37,7 +36,7 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
-        Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
+        List<SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
         Page<User> users = userService.findPage(filters, pageable);
         model.addAttribute("users", users);
         return "user/list";
@@ -45,7 +44,7 @@ public class UserController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
-        User user = userService.get(id);
+        User user = userService.find(id);
         model.addAttribute("user", user);
         return "user/show";
     }
@@ -68,7 +67,7 @@ public class UserController {
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
-        User user = userService.get(id);
+        User user = userService.find(id);
         model.addAttribute("user", user);
         return "user/edit";
     }
@@ -98,7 +97,7 @@ public class UserController {
 
     @RequestMapping(value = "edit/{id}/role", method = RequestMethod.GET)
     public String editRole(@ValidatorId @PathVariable("id") Long id, Model model) {
-        User user = userService.get(id);
+        User user = userService.find(id);
         List<Role> userRoles = roleService.queryUserRoles(id);
         List<Role> roles = roleService.findAll();
 

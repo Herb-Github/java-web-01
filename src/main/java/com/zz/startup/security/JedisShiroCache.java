@@ -27,7 +27,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
     private LoadingCache<K, V> sessionCache = CacheBuilder.newBuilder().maximumSize(1024)
             .expireAfterWrite(3, TimeUnit.SECONDS).build(new CacheLoader<K, V>() {
                 public V load(K k) {
-                    logger.debug("get cache key: {}", k);
+                    logger.debug("find cache key: {}", k);
                     V v = (V) redisTemplate.opsForHash().get((K) SHIRO_CACHE_REDIS_PREFIX, getCacheKey(k));
                     return v;
                 }
@@ -44,7 +44,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
         try {
             return sessionCache.get(key);
         } catch (Exception e) {
-            logger.warn("get cache key {} null", key);
+            logger.warn("find cache key {} null", key);
             return null;
         }
     }

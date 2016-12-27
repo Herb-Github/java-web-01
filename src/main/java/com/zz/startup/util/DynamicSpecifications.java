@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DynamicSpecifications {
 
-    public static <T> Specification<T> bySearchFilter(final Collection<SearchFilter> filters) {
+    public static <T> Specification<T> bySearchFilter(Collection<SearchFilter> filters) {
 
         return (root, query, builder) -> {
             List<Predicate> predicates = Lists.newArrayList();
@@ -41,6 +41,9 @@ public class DynamicSpecifications {
                         break;
                     case LTE:
                         predicates.add(builder.lessThanOrEqualTo(expression, (Comparable) filter.value));
+                        break;
+                    case NE:
+                        predicates.add(builder.notEqual(expression, filter.value));
                         break;
                 }
             }

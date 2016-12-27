@@ -18,7 +18,7 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login() {
-        logger.debug("login get");
+        logger.debug("login find");
         Subject subject = SecurityUtils.getSubject();
         Object object = subject.getPrincipal();
         if (object == null) {

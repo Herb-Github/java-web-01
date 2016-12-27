@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("authority")
@@ -31,7 +30,7 @@ public class AuthorityController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Pageable pageable, HttpServletRequest request, Model model) {
-        Map<String, SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
+        List<SearchFilter> filters = SearchFilter.parse(Servlets.getParametersStartingWith(request, Constants.SEARCH_PREFIX));
         Page<Authority> authorities = authorityService.findPage(filters, pageable);
 
         model.addAttribute("authorities", authorities);
@@ -40,7 +39,7 @@ public class AuthorityController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
-        Authority authority = authorityService.get(id);
+        Authority authority = authorityService.find(id);
         model.addAttribute("authority", authority);
         return "authority/show";
     }
@@ -64,7 +63,7 @@ public class AuthorityController {
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
-        Authority authority = authorityService.get(id);
+        Authority authority = authorityService.find(id);
         model.addAttribute("authority", authority);
 
         return "authority/edit";
