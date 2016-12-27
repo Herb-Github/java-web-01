@@ -11,8 +11,9 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.EntityManagerFactory;
@@ -49,10 +50,14 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public M findOne(String key, SearchFilter.Operator operator, Object value) {
+        return findOne(new SearchFilter(key, operator, value));
+    }
+
+    public M findOne(SearchFilter filter) {
         List<SearchFilter> filters = new ArrayList<>();
-        filters.add(new SearchFilter(key, operator, value));
-        Specification<M> specification = buildQuery(filters);
-        return baseDao.findOne(specification);
+        filters.add(filter);
+        Specification<M> spec = buildQuery(filters);
+        return baseDao.findOne(spec);
     }
 
     public List<M> findAll() {
@@ -67,11 +72,21 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
         return baseDao.count();
     }
 
+    public Page<M> findPage(SearchFilter filter, int pageSize, int pageNo) {
+        List<SearchFilter> filters = new ArrayList<>();
+        filters.add(filter);
+        Pageable pageable = new PageRequest(pageNo, pageSize);
+        return findPage(filters, pageable);
+    }
+
     public Page<M> findPage(List<SearchFilter> filters, Pageable pageable) {
-        Specification<M> query = buildQuery(filters);
-        long count = baseDao.count(query);
-        List<M> list = baseDao.findAll(query);
-        return new PageImpl<>(list, pageable, count);
+        return findPage(filters, pageable, null);
+    }
+
+    public Page<M> findPage(List<SearchFilter> filters, Pageable pageable, Sort sort) {
+        PageRequest newPage = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        Specification<M> spec = buildQuery(filters);
+        return baseDao.findAll(spec, newPage);
     }
 
     public List<M> findBy(String key, Object value) {
@@ -89,8 +104,8 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public List<M> findBy(List<SearchFilter> filters) {
-        Specification<M> query = buildQuery(filters);
-        return baseDao.findAll(query);
+        Specification<M> spec = buildQuery(filters);
+        return baseDao.findAll(spec);
     }
 
     public boolean exists(ID id) {
