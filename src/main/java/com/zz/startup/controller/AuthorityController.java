@@ -1,6 +1,5 @@
 package com.zz.startup.controller;
 
-import com.zz.startup.annotation.ValidatorId;
 import com.zz.startup.entity.Authority;
 import com.zz.startup.service.AuthorityService;
 import com.zz.startup.util.Constants;
@@ -38,7 +37,7 @@ public class AuthorityController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         Authority authority = authorityService.find(id);
         model.addAttribute("authority", authority);
         return "authority/show";
@@ -62,7 +61,7 @@ public class AuthorityController {
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         Authority authority = authorityService.find(id);
         model.addAttribute("authority", authority);
 

@@ -1,6 +1,8 @@
 package com.zz.startup.service;
 
+import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
+import com.zz.startup.repository.RoleDao;
 import com.zz.startup.repository.UserDao;
 import com.zz.startup.util.Constants;
 import com.zz.startup.util.Digests;
@@ -8,14 +10,22 @@ import com.zz.startup.util.Encodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class UserService extends BaseService<User, Long> {
 
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private RoleDao roleDao;
+
     public void createUser(User user) {
         entryptPassword(user);
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
         userDao.save(user);
     }
 
@@ -27,11 +37,17 @@ public class UserService extends BaseService<User, Long> {
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
 
-    public int insertUserRole(Long userId, Long roleId) {
-        return userDao.insertUserRole(userId, roleId);
+    public void updateUserRoles(Long id, Long[] roleIds) {
+        userDao.deleteRoles(id);
+        for (Long roleId : roleIds) {
+            userDao.insertUserRole(id, roleId);
+        }
     }
 
-    public int deleteRoles(Long userId) {
-        return userDao.deleteRoles(userId);
+    public void deleteUser(Long id) {
+        List<Role> roles = roleDao.queryUserRoles(id);
+        roles.forEach(role -> roleDao.deleteAuthorities(role.getId()));
+        userDao.delete(id);
+        userDao.deleteRoles(id);
     }
 }

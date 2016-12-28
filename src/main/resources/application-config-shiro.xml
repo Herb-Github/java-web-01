@@ -62,7 +62,7 @@
                 /logout = logout
                 /favicon.ico = anon,noSessionCreation
                 /assets/** = anon,noSessionCreation
-                /druid/** = anno,noSessionCreation
+                /druid/** = anon,noSessionCreation
                 /** = user
             </value>
         </property>

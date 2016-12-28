@@ -1,6 +1,8 @@
 package com.zz.startup.test;
 
 
-//@Transactional("transactionManager")
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional("transactionManager")
 public class BaseServiceTest extends BaseContext {
 }

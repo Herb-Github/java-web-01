@@ -1,6 +1,5 @@
 package com.zz.startup.controller;
 
-import com.zz.startup.annotation.ValidatorId;
 import com.zz.startup.entity.Role;
 import com.zz.startup.service.RoleService;
 import com.zz.startup.util.Constants;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -38,7 +38,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         Role role = roleService.find(id);
         model.addAttribute("role", role);
         return "role/show";
@@ -55,6 +55,8 @@ public class RoleController {
             return "role/new";
         }
 
+        role.setCreateTime(new Date());
+        role.setUpdateTime(new Date());
         roleService.save(role);
 
         redirectAttributes.addFlashAttribute("msg", "新增角色成功");
@@ -62,7 +64,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         Role role = roleService.find(id);
         model.addAttribute("role", role);
 
@@ -75,6 +77,7 @@ public class RoleController {
             return "role/edit";
         }
 
+        role.setUpdateTime(new Date());
         roleService.update(id, role);
 
         redirectAttributes.addFlashAttribute("msg", "更新角色成功");

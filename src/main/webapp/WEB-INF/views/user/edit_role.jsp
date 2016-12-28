@@ -21,7 +21,7 @@
 
           <c:forEach items="${roles}" var="role">
             <label class="am-checkbox-inline">
-              <input type="checkbox" name="roleIds" value="${role.id}" <c:if test="${role.checked}">checked</c:if> >${role.roleName}
+              <input type="checkbox" name="roleIds" value="${role.id}" <c:if test="${role.checked}">checked</c:if> >${role.name}
             </label>
           </c:forEach>
         </div>

@@ -38,7 +38,7 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void test_user_role() {
         int insert = userDao.insertUserRole(1L, 3L);
-        int delete = userDao.deleteUserRole(1L, 3L);
+        int delete = userDao.deleteRole(1L, 3L);
 
         System.out.println(insert);
         System.out.println(delete);

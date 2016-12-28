@@ -20,4 +20,8 @@ public interface RoleDao extends BaseDao<Role, Long> {
     @Modifying
     @Query(value = "delete from t_auth_role_authority where role_id=?1 and authority_id=?2", nativeQuery = true)
     int deleteRoleAuthority(Long roleId, Long authorityId);
+
+    @Modifying
+    @Query(value = "delete from t_auth_role_authority where role_id=?1", nativeQuery = true)
+    int deleteAuthorities(Long roleId);
 }

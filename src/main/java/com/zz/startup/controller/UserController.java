@@ -1,6 +1,5 @@
 package com.zz.startup.controller;
 
-import com.zz.startup.annotation.ValidatorId;
 import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
 import com.zz.startup.service.RoleService;
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Validated
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String show(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         User user = userService.find(id);
         model.addAttribute("user", user);
         return "user/show";
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public String edit(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         User user = userService.find(id);
         model.addAttribute("user", user);
         return "user/edit";
@@ -78,6 +78,7 @@ public class UserController {
             return "user/edit";
         }
 
+        user.setUpdateTime(new Date());
         userService.update(id, user);
 
         redirectAttributes.addFlashAttribute("msg", "更新用户成功");
@@ -85,10 +86,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@ValidatorId @PathVariable("id") Long id,
+    public String delete(@PathVariable("id") Long id,
                          RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
-        userService.delete(id);
+        userService.deleteUser(id);
 
         redirectAttributes.addFlashAttribute("msg", "删除用户成功");
         redirectAttributes.addAllAttributes(Servlets.getParametersStartingWith(request, ""));
@@ -96,7 +97,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "edit/{id}/role", method = RequestMethod.GET)
-    public String editRole(@ValidatorId @PathVariable("id") Long id, Model model) {
+    public String editRole(@PathVariable("id") Long id, Model model) {
         User user = userService.find(id);
         List<Role> userRoles = roleService.queryUserRoles(id);
         List<Role> roles = roleService.findAll();
@@ -117,11 +118,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "update/{id}/role", method = RequestMethod.POST)
-    public String updateRole(@ValidatorId @PathVariable("id") Long id, Long[] roleIds, RedirectAttributes redirectAttributes) {
-        userService.deleteRoles(id);
-        for (Long roleId : roleIds) {
-            userService.insertUserRole(id, roleId);
-        }
+    public String updateRole(@PathVariable("id") Long id, Long[] roleIds, RedirectAttributes redirectAttributes) {
+        userService.updateUserRoles(id, roleIds);
 
         redirectAttributes.addFlashAttribute("msg", "更新用户角色成功");
         return "redirect:/user/";

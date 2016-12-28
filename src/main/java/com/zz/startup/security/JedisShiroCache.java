@@ -1,8 +1,5 @@
 package com.zz.startup.security;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.slf4j.Logger;
@@ -12,26 +9,17 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unchecked")
 public class JedisShiroCache<K, V> implements Cache<K, V> {
 
     private static final String SHIRO_CACHE_REDIS_PREFIX = "SHIRO_CACHE_";
     private static Logger logger = LoggerFactory.getLogger(JedisShiroCache.class);
+
     @Autowired
     private RedisTemplate<K, V> redisTemplate;
 
     private String name;
-
-    private LoadingCache<K, V> sessionCache = CacheBuilder.newBuilder().maximumSize(1024)
-            .expireAfterWrite(3, TimeUnit.SECONDS).build(new CacheLoader<K, V>() {
-                public V load(K k) {
-                    logger.debug("find cache key: {}", k);
-                    V v = (V) redisTemplate.opsForHash().get((K) SHIRO_CACHE_REDIS_PREFIX, getCacheKey(k));
-                    return v;
-                }
-            });
 
     public JedisShiroCache() {
     }
@@ -42,7 +30,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
 
     public V get(K key) throws CacheException {
         try {
-            return sessionCache.get(key);
+            return (V) redisTemplate.opsForHash().get((K) SHIRO_CACHE_REDIS_PREFIX, getCacheKey(key));
         } catch (Exception e) {
             logger.warn("find cache key {} null", key);
             return null;
