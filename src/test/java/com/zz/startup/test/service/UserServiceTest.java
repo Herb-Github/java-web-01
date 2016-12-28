@@ -7,6 +7,7 @@ import com.zz.startup.test.BaseServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceTest extends BaseServiceTest {
@@ -20,7 +21,7 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void test_deleteUser() {
         List<User> users = userService.findAll();
-        userService.delete(users);
+        userService.deleteBatch(users);
     }
 
     @Test
@@ -28,6 +29,8 @@ public class UserServiceTest extends BaseServiceTest {
         User user = new User();
         user.setUsername("admin2");
         user.setPlainPassword("111111");
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
 
         userService.createUser(user);
     }

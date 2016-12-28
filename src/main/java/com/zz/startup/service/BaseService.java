@@ -1,6 +1,6 @@
 package com.zz.startup.service;
 
-import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 import com.zz.startup.entity.BaseEntity;
 import com.zz.startup.repository.BaseDao;
 import com.zz.startup.util.DynamicSpecifications;
@@ -18,7 +18,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public abstract class BaseService<M extends BaseEntity, ID extends Serializable> {
 
@@ -40,9 +43,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
 
     public List<M> find(Collection<ID> ids) {
         Iterable<M> elements = baseDao.findAll(ids);
-        List<M> models = new ArrayList<>();
-        Iterators.addAll(models, elements.iterator());
-        return models;
+        return Lists.newArrayList(elements);
     }
 
     public M findOne(String key, Object value) {
@@ -54,8 +55,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public M findOne(SearchFilter filter) {
-        List<SearchFilter> filters = new ArrayList<>();
-        filters.add(filter);
+        List<SearchFilter> filters = Lists.newArrayList(filter);
         Specification<M> spec = buildQuery(filters);
         return baseDao.findOne(spec);
     }
@@ -73,8 +73,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public Page<M> findPage(SearchFilter filter, int pageSize, int pageNo) {
-        List<SearchFilter> filters = new ArrayList<>();
-        filters.add(filter);
+        List<SearchFilter> filters = Lists.newArrayList(filter);
         Pageable pageable = new PageRequest(pageNo, pageSize);
         return findPage(filters, pageable);
     }
@@ -98,14 +97,17 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public List<M> findBy(SearchFilter filter) {
-        List<SearchFilter> filters = new ArrayList<>();
-        filters.add(filter);
+        List<SearchFilter> filters = Lists.newArrayList(filter);
         return findBy(filters);
     }
 
     public List<M> findBy(List<SearchFilter> filters) {
+        return findBy(filters, null);
+    }
+
+    public List<M> findBy(List<SearchFilter> filters, Sort sort) {
         Specification<M> spec = buildQuery(filters);
-        return baseDao.findAll(spec);
+        return baseDao.findAll(spec, sort);
     }
 
     public boolean exists(ID id) {
