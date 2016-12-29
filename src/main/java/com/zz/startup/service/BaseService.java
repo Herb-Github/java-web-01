@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,10 +27,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     @Autowired
     protected BaseDao<M, ID> baseDao;
 
-    protected final Class<M> entityClass;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    protected Class<M> entityClass;
 
     protected BaseService() {
         entityClass = Reflections.getClassGenricType(getClass());
@@ -56,7 +52,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
 
     public M findOne(SearchFilter filter) {
         List<SearchFilter> filters = Lists.newArrayList(filter);
-        Specification<M> spec = buildQuery(filters);
+        Specification<M> spec = buildSpec(filters);
         return baseDao.findOne(spec);
     }
 
@@ -84,7 +80,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
 
     public Page<M> findPage(List<SearchFilter> filters, Pageable pageable, Sort sort) {
         PageRequest newPage = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), sort);
-        Specification<M> spec = buildQuery(filters);
+        Specification<M> spec = buildSpec(filters);
         return baseDao.findAll(spec, newPage);
     }
 
@@ -106,7 +102,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
     }
 
     public List<M> findBy(List<SearchFilter> filters, Sort sort) {
-        Specification<M> spec = buildQuery(filters);
+        Specification<M> spec = buildSpec(filters);
         return baseDao.findAll(spec, sort);
     }
 
@@ -141,7 +137,7 @@ public abstract class BaseService<M extends BaseEntity, ID extends Serializable>
         baseDao.deleteInBatch(entities);
     }
 
-    protected Specification<M> buildQuery(List<SearchFilter> filters) {
+    protected Specification<M> buildSpec(List<SearchFilter> filters) {
         return DynamicSpecifications.bySearchFilter(filters);
     }
 

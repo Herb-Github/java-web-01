@@ -47,7 +47,6 @@
           <th class="table-id">id</th>
           <th class="table-title">权限名称</th>
           <th class="table-title">权限模式</th>
-          <th class="table-title">上级权限</th>
           <th class="table-author am-hide-sm-only">创建日期</th>
           <th class="table-date am-hide-sm-only">修改日期</th>
           <th class="table-set">操作</th>
@@ -60,10 +59,9 @@
             <td>${status.index + 1}</td>
             <td>${authority.name}</td>
             <td>${authority.permission}</td>
-            <td>${authority.parentName}</td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${authority.creationTime}"
+            <td class="am-hide-sm-only"><fmt:formatDate value="${authority.createTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td class="am-hide-sm-only"><fmt:formatDate value="${authority.modifiedTime}"
+            <td class="am-hide-sm-only"><fmt:formatDate value="${authority.updateTime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>
               <div class="am-btn-toolbar">

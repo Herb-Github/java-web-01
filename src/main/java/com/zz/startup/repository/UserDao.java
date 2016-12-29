@@ -19,4 +19,6 @@ public interface UserDao extends BaseDao<User, Long> {
     @Modifying
     @Query(value = "delete from t_auth_user_role where user_id=?1", nativeQuery = true)
     int deleteRoles(Long userId);
+
+    User findById(Long id);
 }

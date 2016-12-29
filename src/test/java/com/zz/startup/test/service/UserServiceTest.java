@@ -43,4 +43,10 @@ public class UserServiceTest extends BaseServiceTest {
         System.out.println(insert);
         System.out.println(delete);
     }
+
+    @Test
+    public void test_native_api() {
+        User user = userDao.findById(1L);
+        System.out.println(user);
+    }
 }
