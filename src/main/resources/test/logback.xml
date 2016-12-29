@@ -1,16 +1,48 @@
 <included>
-    <property name="log_path" value="/usr/logs/test/zz/"/>
-
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{trackId}] %logger{36}.%M\(%line\)- %msg%n
-            </pattern>
-        </encoder>
-    </appender>
+    <property name="log_path" value="/data/logs/startup/"/>
 
     <logger name="com.zz" level="debug"/>
 
+    <appender name="InfoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log_path}/info.log.${log_file_suffix}</FileNamePattern>
+            <MaxHistory>${log_file_history}</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log_file_size}</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] [%X{trackId}] [%logger{36} \(%line\)] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ErrorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log_path}/error.log.${log_file_suffix}</FileNamePattern>
+            <MaxHistory>${log_file_history}</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log_file_size}</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] [%X{trackId}] [%logger{36} \(%line\)] %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="info">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="InfoAppender"/>
+        <appender-ref ref="ErrorAppender"/>
     </root>
 </included>

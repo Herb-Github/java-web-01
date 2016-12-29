@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!--
+    logstash grok pattern配置
+    \[%{TIMESTAMP_ISO8601:timestamp}\] \[%{DATA:thread}\] \[%{LOGLEVEL:logLevel}\] \[%{DATA:track}\] \[%{DATA:class}\] %{GREEDYDATA:msg}
+    -->
+
+    <property name="log_file_suffix" value="%d{yyyy-MM-dd}-%i"/>
+    <property name="log_file_size" value="1024MB" />
+    <property name="log_file_history" value="30" />
+
     <include resource="${profile.active}/logback.xml"/>
 </configuration>
