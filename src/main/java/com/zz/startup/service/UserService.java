@@ -4,6 +4,7 @@ import com.zz.startup.entity.Role;
 import com.zz.startup.entity.User;
 import com.zz.startup.repository.RoleDao;
 import com.zz.startup.repository.UserDao;
+import com.zz.startup.security.JedisShiroCache;
 import com.zz.startup.util.Constants;
 import com.zz.startup.util.Digests;
 import com.zz.startup.util.Encodes;
@@ -21,6 +22,9 @@ public class UserService extends BaseService<User, Long> {
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private JedisShiroCache jedisShiroCache;
 
     public void createUser(User user) {
         entryptPassword(user);
@@ -42,6 +46,9 @@ public class UserService extends BaseService<User, Long> {
         for (Long roleId : roleIds) {
             userDao.insertUserRole(id, roleId);
         }
+
+        User user = userDao.findById(id);
+        jedisShiroCache.remove(user.getUsername());
     }
 
     public void deleteUser(Long id) {
